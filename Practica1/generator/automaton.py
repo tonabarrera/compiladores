@@ -1,2 +1,0 @@
-class Automaton(object):
-    pass
