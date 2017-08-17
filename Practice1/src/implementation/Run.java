@@ -8,31 +8,71 @@ package implementation;
 import generator.Automaton;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
- *
  * @author tona
  */
 public class Run {
+    private static Scanner scanner;
+    private static Automaton automaton = new Automaton();
+
     public static void main(String args[]) {
-        System.out.println("Hi");
+        scanner = new Scanner(System.in);
+
         boolean is_valid;
-        Automaton automaton = new Automaton();
-        automaton.setInitialState(0);
-        ArrayList<Character> alphabet = new ArrayList<Character>();
-        alphabet.add('a');
-        alphabet.add('b');
-        alphabet.add('c');
-        alphabet.add('d');
-        alphabet.add('e');
-        automaton.setAlphabet(alphabet);
+        initializeAutomaton();
+
+        System.out.println("Introduce a string: ");
+        String myString = scanner.nextLine();
+
+        is_valid = automaton.evaluateString(myString);
+
+        if (is_valid) System.out.println("Valido");
+        else System.out.println("No valido");
+    }
+
+    private static void initializeAutomaton() {
+        ArrayList<Character> alphabet = new ArrayList<>();
+        ArrayList<Integer> finales = new ArrayList<>();
         ArrayList<Integer> states = new ArrayList<>();
-        states.add(0);
-        states.add(1);
-        states.add(2);
+        int initialState;
+        String alphabetString;
+        String statesString;
+
+        System.out.println("1.-Introduce your alphabet symbols separate for a space:");
+        alphabetString = scanner.nextLine();
+        for (Character symbol : alphabetString.toCharArray())
+            if (symbol != ' ') alphabet.add(symbol);
+
+        System.out.println("2.-Introduce your states:");
+        statesString = scanner.nextLine();
+        for (String state : statesString.split(" "))
+            states.add(Integer.valueOf(state));
+
+        System.out.println("3.-Introduce your initial state:");
+        initialState = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("4.-Introduce your final states separate for a space:");
+        statesString = scanner.nextLine();
+        for (String state : statesString.split(" "))
+            finales.add(Integer.valueOf(state));
+
+        System.out.println("5.-Introduce your transitions (currentState, nextState, symbol)");
+
+        automaton.setAlphabet(alphabet);
         automaton.setStates(states);
-        automaton.addTransition(0, 1, 'a');
-        is_valid = automaton.evaluateString("madre mia willy");
-        if (is_valid) System.out.println("Valido"); else System.out.println("No valido");
+        automaton.setInitialState(initialState);
+        automaton.setFinalStates(finales);
+
+        automaton.addTransition(0, 1, '1');
+        automaton.addTransition(1, 0, '1');
+        automaton.addTransition(0, 2, '0');
+        automaton.addTransition(2, 0, '0');
+        automaton.addTransition(3, 1, '0');
+        automaton.addTransition(1, 3, '0');
+        automaton.addTransition(3, 2, '1');
+        automaton.addTransition(2, 3, '1');
     }
 }

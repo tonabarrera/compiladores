@@ -17,6 +17,11 @@ public class Automaton {
     private ArrayList<Integer> finalStates;
     private int initialState;
     private ArrayList<Transition> transitions;
+    private int currentState;
+
+    public Automaton() {
+        transitions = new ArrayList<>();
+    }
 
     public void setAlphabet(ArrayList<Character> alphabet) {
         this.alphabet = alphabet;
@@ -39,6 +44,19 @@ public class Automaton {
     }
 
     public boolean evaluateString(String word) {
-        return false;
+        currentState = initialState;
+        for (char symbol: word.toCharArray()) {
+            if (!alphabet.contains(symbol)) return false;
+            System.out.println("symbol: " + symbol);
+            for (Transition transition: transitions) {
+                if (transition.getCurrentState() == currentState) {
+                    if (transition.getSymbol() == symbol){
+                        currentState = transition.getNextState();
+                        break;
+                    }
+                }
+            }
+        }
+        return finalStates.contains(currentState);
     }
 }
