@@ -22,14 +22,15 @@ public class Run {
 
         boolean is_valid;
         initializeAutomaton();
+        for (int i = 0; i < 10; i++) {
+            System.out.println("Introduce a string: ");
+            String myString = scanner.nextLine();
 
-        System.out.println("Introduce a string: ");
-        String myString = scanner.nextLine();
+            is_valid = automaton.evaluateString(myString);
 
-        is_valid = automaton.evaluateString(myString);
-
-        if (is_valid) System.out.println("Valido");
-        else System.out.println("No valido");
+            if (is_valid) System.out.println("Valido");
+            else System.out.println("No valido");
+        }
     }
 
     private static void initializeAutomaton() {
@@ -66,13 +67,25 @@ public class Run {
         automaton.setInitialState(initialState);
         automaton.setFinalStates(finales);
 
-        automaton.addTransition(0, 1, '1');
-        automaton.addTransition(1, 0, '1');
-        automaton.addTransition(0, 2, '0');
-        automaton.addTransition(2, 0, '0');
-        automaton.addTransition(3, 1, '0');
-        automaton.addTransition(1, 3, '0');
-        automaton.addTransition(3, 2, '1');
-        automaton.addTransition(2, 3, '1');
+        automaton.addTransition(0, 0, 'b');
+        automaton.addTransition(0, 1, 'a');
+
+        automaton.addTransition(1, 2, 'b');
+        automaton.addTransition(1, 1, 'a');
+
+        automaton.addTransition(2, 3, 'b');
+        automaton.addTransition(2, 1, 'a');
+
+        automaton.addTransition(3, 0, 'b');
+        automaton.addTransition(3, 1, 'a');
+
+        //        automaton.addTransition(0, 1, '1');
+//        automaton.addTransition(1, 0, '1');
+//        automaton.addTransition(0, 2, '0');
+//        automaton.addTransition(2, 0, '0');
+//        automaton.addTransition(3, 1, '0');
+//        automaton.addTransition(1, 3, '0');
+//        automaton.addTransition(3, 2, '1');
+//        automaton.addTransition(2, 3, '1');
     }
 }
