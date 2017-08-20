@@ -39,26 +39,31 @@ public class Run {
         int initialState;
         String statesString;
 
-        alphabet.add('0');
-        alphabet.add('1');
-        alphabet.add('e');
-        alphabet.add('x');
+        alphabet.add('a');
+        alphabet.add('b');
+        //alphabet.add('x');
 
+        states.add(0);
         states.add(1);
         states.add(2);
         states.add(3);
         states.add(4);
 
 
+
         automaton.setAlphabet(alphabet);
         automaton.setStates(states);
-        automaton.setInitialState(1);
+        automaton.setInitialState(0);
+        automaton.addFinalState(2);
         automaton.addFinalState(4);
-        automaton.addFinalState(1);
 
-        automaton.addTransition(1, 2, '1');
-        automaton.addTransition(2, 1, '1');
-        automaton.addTransition(1, 3, 'e');
-        automaton.addTransition(3, 4, 'x');
+
+        automaton.addTransition(0, 1, 'e');
+        automaton.addTransition(1, 2, 'a');
+        automaton.addTransition(2, 2, 'a');
+        automaton.addTransition(0, 3, 'e');
+        automaton.addTransition(3, 4, 'b');
+        automaton.addTransition(4, 4, 'b');
+
     }
 }

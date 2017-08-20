@@ -5,11 +5,17 @@
  */
 package generator;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author tona
  */
 public class DFA extends NFA{
+
+    public void setAlphabet(ArrayList<Character> alphabet) {
+        this.alphabet.addAll(alphabet);
+    }
 
     public boolean evaluateString(String word) {
         currentStates.add(initialState);

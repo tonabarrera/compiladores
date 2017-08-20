@@ -22,11 +22,13 @@ public class NFA {
     public NFA() {
         states = new ArrayList<>();
         transitions = new ArrayList<>();
+        alphabet = new ArrayList<>();
         finalStates = new ArrayList<>();
     }
 
     public void setAlphabet(ArrayList<Character> alphabet) {
-        this.alphabet = alphabet;
+        alphabet.add('e');
+        this.alphabet.addAll(alphabet);
     }
 
     public void setStates(ArrayList<Integer> states) {
@@ -52,7 +54,7 @@ public class NFA {
     public boolean evaluateString(String word) {
         currentStates = getEpsilonStates(initialState);
         for (char c : word.toCharArray()){
-            currentStates = getEpsilonStates(move(currentStates, c));
+            currentStates = getEpsilonStates(getNextStates(currentStates, c));
         }
         for (int s : currentStates) {
             System.out.println(s);
@@ -89,7 +91,7 @@ public class NFA {
         return aux;
     }
 
-    private ArrayList<Integer> move(ArrayList<Integer> states, Character c) {
+    private ArrayList<Integer> getNextStates(ArrayList<Integer> states, Character c) {
         ArrayList<Integer> nextStates = new ArrayList<>();
         for (int s: states)
             for (Transition transition : transitions)
