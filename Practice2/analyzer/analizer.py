@@ -1,6 +1,5 @@
 from analyzer.tree import Node
 
-
 class Analyzer:
     def __init__(self, string):
         self.string = string
@@ -32,3 +31,15 @@ class Analyzer:
                     node = Node()
                     node.left = current_node
                     current_node = node
+
+        self.tree = current_node
+
+    def postorden(self, arbol=None):
+        if arbol is None:
+            return 0
+        self.postorden(arbol.left)
+        self.postorden(arbol.right)
+        print(arbol.value)
+
+    def create_transition(self, value):
+        # meter datos en una pila y si llega un parentesis o una linea o punto sacar de la pila y generar la transicion
