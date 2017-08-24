@@ -1,4 +1,5 @@
-from analizador.arbol import Nodo
+from expresiones.arbol import Nodo
+
 
 class Analizador:
     def __init__(self, cadena):
@@ -21,7 +22,7 @@ class Analizador:
                 nodo_actual.izq = nodo
                 self.pila.append(nodo_actual)
                 nodo_actual = nodo_actual.izq
-            elif c == '|' or c == '.' or c == '*' or c=='+':
+            elif c == '|' or c == '.' or c == '*' or c == '+':
                 nodo_actual.valor = c
                 nodo = Nodo()
                 nodo.idNodo = cont_id
@@ -48,8 +49,8 @@ class Analizador:
             return 0
         self.postorden(arbol.izq)
         self.postorden(arbol.der)
-        #crearTransicion(arbol.valor)
-        print("%s %s" %(arbol.valor, arbol.idNodo))
+        # crearTransicion(arbol.valor)
+        print("%s %s" % (arbol.valor, arbol.idNodo))
 
     def crearTransicion(self, valor):
-        aux = pilaTransiciones.pop()
+        pass

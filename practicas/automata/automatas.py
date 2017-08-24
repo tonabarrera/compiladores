@@ -4,6 +4,7 @@ class Transicion:
         self.siguiente = siguiente
         self.caracter = caracter
 
+
 class AFN:
     def __init__(self):
         self.alfabeto = []
@@ -12,7 +13,7 @@ class AFN:
         self.estados_actuales = []
         self.transiciones = []
 
-    def agregar_transicion(self, acutal, siguiente, caracter):
+    def agregar_transicion(self, actual, siguiente, caracter):
         self.transiciones.append(Transicion(actual, siguiente, caracter))
 
     def agregar_final(self, estado):
@@ -20,18 +21,18 @@ class AFN:
 
     def agregar_alfabeto(self, alfabeto):
         self.alfabeto = alfabeto
-        self.alfabeto.append('e') 
+        self.alfabeto.append('e')
 
     def agregar_iniciar(self, estado):
-        self.estado_inicial = estados
+        self.estado_inicial = estado
 
     def evaluar_cadena(self, cadena):
-        self.estados_actuales = estados_epsilon(self.estado_inicial)
+        self.estados_actuales = self.estados_epsilon(self.estado_inicial)
         for caracter in cadena:
-            self.estados_actuales = estados_epsilon(evaluar_estado(self.estados_actuales, caracter))
+            self.estados_actuales = self.estados_epsilon(self.evaluar_estado(self.estados_actuales, caracter))
 
         for estado in self.estados_actuales:
-            if self.estados_finales.contains(estado):
+            if estado in self.estados_finales:
                 return True
         return False
 
@@ -39,26 +40,27 @@ class AFN:
         aux = []
         for estado in estados:
             for transicion in self.transiciones:
-                if estado == transicion.estado_actual and transicion.caracter = c:
+                if estado == transicion.estado_actual and transicion.caracter == c:
                     aux.append(transicion.siguiente)
         return aux
 
     def estados_epsilon(self, estados):
-        pass
+        return []
+
 
 class AFD(AFN):
     def agregar_alfabeto(self, alfabeto):
         self.alfabeto = alfabeto
 
     def evaluar_cadena(self, cadena):
-        self.estados_actuales.append(estado_inicial)
+        self.estados_actuales.append(self.estado_inicial)
         for caracter in cadena:
-            if self.alfabeto.contains(caracter): return
+            if self.alfabeto.contains(caracter):
+                return
             for transicion in self.transiciones:
                 if transicion.actual == self.estados_actuales[0]:
                     if transicion.caracter == caracter:
                         self.estados_actuales[0] = transicion.siguiente
                         break
 
-        return estados_finales.contains(estados_actuales[0])
-
+        return self.estados_actuales[0] in self.estados_finales
