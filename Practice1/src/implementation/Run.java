@@ -50,15 +50,11 @@ public class Run {
         states.add(4);
         states.add(5);
 
-
-
-
         automaton.setAlphabet(alphabet);
         automaton.setStates(states);
         automaton.setInitialState(0);
         automaton.addFinalState(6);
         automaton.addFinalState(4);
-
 
         automaton.addTransition(0, 0, '0');
         automaton.addTransition(0, 1, '0');

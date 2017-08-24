@@ -1,8 +1,5 @@
 package generator;
 
-/**
- * Created by tona on 16/08/2017 for Practice1.
- */
 class Transition {
     private int currentState;
     private int nextState;

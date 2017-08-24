@@ -7,10 +7,6 @@ package generator;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author tona
- */
 public class DFA extends NFA{
 
     public void setAlphabet(ArrayList<Character> alphabet) {

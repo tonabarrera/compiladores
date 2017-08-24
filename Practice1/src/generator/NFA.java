@@ -8,19 +8,14 @@ package generator;
 import java.util.ArrayList;
 import java.util.Stack;
 
-/**
- * @author Alumno
- */
 public class NFA {
     ArrayList<Character> alphabet;
     ArrayList<Integer> finalStates;
     int initialState;
     ArrayList<Integer> currentStates;
     ArrayList<Transition> transitions;
-    private ArrayList<Integer> states;
 
     public NFA() {
-        states = new ArrayList<>();
         transitions = new ArrayList<>();
         alphabet = new ArrayList<>();
         finalStates = new ArrayList<>();
@@ -32,7 +27,6 @@ public class NFA {
     }
 
     public void setStates(ArrayList<Integer> states) {
-        this.states = states;
     }
 
     public void setFinalStates(ArrayList<Integer> finalStates) {
