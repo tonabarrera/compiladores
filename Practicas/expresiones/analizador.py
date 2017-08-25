@@ -1,56 +1,55 @@
-from expresiones.arbol import Nodo
+from automata.automatas import Transicion
 
 
 class Analizador:
-    def __init__(self, cadena):
-        self.cadena = cadena
-        self.arbol = None
-        self.pila = []
-        self.pilaTransiciones = []
+    def __init__(self):
+        self.salida = []
+        self.transiciones = []
 
-    def analizar(self):
-        cont_id = 0
-        self.arbol = Nodo()
-        self.arbol.idNodo = cont_id
-        nodo_actual = self.arbol
-        for c in self.cadena:
-            cont_id = cont_id + 1
-            print(nodo_actual.idNodo)
+    def ordenar_cadena(self, cadena):
+        pila = []
+        for c in cadena:
             if c == '(':
-                nodo = Nodo()
-                nodo.idNodo = cont_id
-                nodo_actual.izq = nodo
-                self.pila.append(nodo_actual)
-                nodo_actual = nodo_actual.izq
-            elif c == '|' or c == '.' or c == '*' or c == '+':
-                nodo_actual.valor = c
-                nodo = Nodo()
-                nodo.idNodo = cont_id
-                nodo_actual.der = nodo
-                self.pila.append(nodo_actual)
-                nodo_actual = nodo_actual.der
+                pila.append(c)
             elif c == ')':
-                if self.pila.__len__() > 0:
-                    nodo_actual = self.pila.pop()
+                aux = pila.pop()
+                while aux != '(':
+                    self.salida.append(aux)
+                    if pila.__len__() < 1:
+                        break
+                    aux = pila.pop()
+            elif c == '+' or c == '*':
+                self.salida.append(c)
+            elif c == '|':
+                if pila.__len__() > 0:
+                    while pila[-1] == '+' or pila[-1] == '*' or pila[-1] == '.':
+                        self.salida.append(pila.pop())
+                pila.append(c)
+            elif c == '.':
+                if pila.__len__() > 0:
+                    while pila[-1] == '+' or pila[-1] == '*':
+                        self.salida.append(pila.pop())
+                pila.append(c)
             else:
-                nodo_actual.valor = c
-                if self.pila.__len__() > 0:
-                    nodo_actual = self.pila.pop()
-                else:
-                    nodo = Nodo()
-                    nodo.idNodo = cont_id
-                    nodo.izq = nodo_actual
-                    nodo_actual = nodo
+                self.salida.append(c)
 
-        self.arbol = nodo_actual
+        while pila.__len__() > 0:
+            self.salida.append(pila.pop())
 
-    def postorden(self, arbol=None):
-        if arbol is None:
-            return 0
-        self.postorden(arbol.izq)
-        self.postorden(arbol.der)
-        # crearTransicion(arbol.valor)
-        print("%s %s" % (arbol.valor, arbol.idNodo))
-
-    def crearTransicion(self, valor):
-        pass
+    def generar_automata(self):
+        actual = 0
+        pila_transiciones = []
+        for c in self.salida:
+            if c == '+':
+                pass
+            elif c == '*':
+                pass
+            elif c == '|':
+                pass
+            elif c == '.':
+                pass
+            else:
+                transicion = Transicion(actual, actual+1, c)
+                pila_transiciones.append(transicion)
+                self.transiciones.append(transicion)
+                actual = actual + 2
