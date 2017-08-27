@@ -37,7 +37,8 @@ class Analizador:
             self.salida.append(pila.pop())
 
     def generar_automata(self):
-        actual = 0
+        inicial = 0
+        final = 1
         pila_transiciones = []
         for c in self.salida:
             if c == '+':
@@ -45,11 +46,24 @@ class Analizador:
             elif c == '*':
                 pass
             elif c == '|':
-                pass
+                print("UNION")
+                s = pila_transiciones.pop()
+                t = pila_transiciones.pop()
+                i1 = Transicion(s[1]+1, s[0], 'e')
+                i2 = Transicion(s[1]+1, t[0], 'e')
+                f1 = Transicion(s[1], s[1]+2, 'e')
+                f2 = Transicion(t[1], s[1]+2, 'e')
+                pila_transiciones.append([s[1]+1, s[1]+2])
+                self.transiciones.extend((i1, i2, f1, f2))
             elif c == '.':
                 pass
             else:
-                transicion = Transicion(actual, actual+1, c)
-                pila_transiciones.append(transicion)
+                print('ESTADO')
+                if pila_transiciones.__len__() > 0:
+                    inicial = pila_transiciones[-1][1]+1
+                    final = inicial +1
+                transicion = Transicion(inicial, final, c)
+                pila_transiciones.append([inicial, final])
                 self.transiciones.append(transicion)
-                actual = actual + 2
+
+        print('Inicial: %s Final: %s' % (pila_transiciones[0][0], pila_transiciones[0][1]))

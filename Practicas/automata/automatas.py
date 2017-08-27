@@ -4,6 +4,9 @@ class Transicion:
         self.siguiente = siguiente
         self.caracter = caracter
 
+    def __str__(self):
+        return '{}->{}: {}'.format(self.actual, self.siguiente, self.caracter)
+
 
 class AFN:
     def __init__(self):
