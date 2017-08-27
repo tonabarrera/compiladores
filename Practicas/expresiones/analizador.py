@@ -3,42 +3,52 @@ from automata.automatas import Transicion
 
 class Analizador:
     def __init__(self):
-        self.salida = []
+        self.salida_inorden = []
         self.transiciones = []
-
-    def ordenar_cadena(self, cadena):
+    #'a*(b|cd)*
+    def convertir_inorden(self, cadena):
         pila = []
+        punto = False
         for c in cadena:
             if c == '(':
+                if punto:
+                    while pila.__len__() > 0 and (pila[-1] == '+' or pila[-1] == '*'):
+                        self.salida_inorden.append(pila.pop())
+                    pila.append('.')
+                    punto = False
                 pila.append(c)
             elif c == ')':
+                punto = True
                 while pila.__len__() > 0 and pila[-1] != '(':
-                    self.salida.append(pila.pop())
+                    self.salida_inorden.append(pila.pop())
                 try:
                     pila.pop()
                 except IndexError as e:
                     raise e
             elif c == '+' or c == '*':
-                self.salida.append(c)
+                self.salida_inorden.append(c)
             elif c == '|':
                 while pila.__len__() > 0 and (pila[-1] == '+' or pila[-1] == '*' or pila[-1] == '.'):
-                    self.salida.append(pila.pop())
+                    self.salida_inorden.append(pila.pop())
                 pila.append(c)
-            elif c == '.':
-                while pila.__len__() > 0 and (pila[-1] == '+' or pila[-1] == '*'):
-                    self.salida.append(pila.pop())
-                pila.append(c)
+                punto = False
             else:
-                self.salida.append(c)
+                if punto:
+                    while pila.__len__() > 0 and (pila[-1] == '+' or pila[-1] == '*'):
+                        self.salida_inorden.append(pila.pop())
+                    pila.append('.')
+                punto = True
+                self.salida_inorden.append(c)
+
 
         while pila.__len__() > 0:
-            self.salida.append(pila.pop())
+            self.salida_inorden.append(pila.pop())
 
     def generar_automata(self):
         inicial = 1
         final = 2
         pila_transiciones = []
-        for c in self.salida:
+        for c in self.salida_inorden:
             if c == '*':
                 print('CERRADURA KLEENE')
                 s = pila_transiciones.pop()
@@ -67,7 +77,7 @@ class Analizador:
                 pila_transiciones.append([s[1]+1, s[1]+2])
                 self.transiciones.extend((i1, i2, f1, f2))
             elif c == '.':
-                print('CONJUNCION')
+                print('CONCATENACION')
                 t = pila_transiciones.pop()
                 s = pila_transiciones.pop()
                 for aux in self.transiciones:
