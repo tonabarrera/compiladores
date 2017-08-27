@@ -12,23 +12,21 @@ class Analizador:
             if c == '(':
                 pila.append(c)
             elif c == ')':
-                aux = pila.pop()
-                while aux != '(':
-                    self.salida.append(aux)
-                    if pila.__len__() < 1:
-                        break
-                    aux = pila.pop()
+                while pila.__len__() > 0 and pila[-1] != '(':
+                    self.salida.append(pila.pop())
+                try:
+                    pila.pop()
+                except IndexError as e:
+                    raise e
             elif c == '+' or c == '*':
                 self.salida.append(c)
             elif c == '|':
-                if pila.__len__() > 0:
-                    while pila[-1] == '+' or pila[-1] == '*' or pila[-1] == '.':
-                        self.salida.append(pila.pop())
+                while pila.__len__() > 0 and (pila[-1] == '+' or pila[-1] == '*' or pila[-1] == '.'):
+                    self.salida.append(pila.pop())
                 pila.append(c)
             elif c == '.':
-                if pila.__len__() > 0:
-                    while pila[-1] == '+' or pila[-1] == '*':
-                        self.salida.append(pila.pop())
+                while pila.__len__() > 0 and (pila[-1] == '+' or pila[-1] == '*'):
+                    self.salida.append(pila.pop())
                 pila.append(c)
             else:
                 self.salida.append(c)
@@ -37,14 +35,27 @@ class Analizador:
             self.salida.append(pila.pop())
 
     def generar_automata(self):
-        inicial = 0
-        final = 1
+        inicial = 1
+        final = 2
         pila_transiciones = []
         for c in self.salida:
-            if c == '+':
-                pass
-            elif c == '*':
-                pass
+            if c == '*':
+                print('CERRADURA KLEENE')
+                s = pila_transiciones.pop()
+                i1 = Transicion(s[1]+1, s[0], 'e')
+                s1 = Transicion(s[1], s[0], 'e')
+                s2 = Transicion(s[1], s[1]+2, 'e')
+                i2 = Transicion(s[1]+1, s[1]+2, 'e')
+                pila_transiciones.append([s[1]+1, s[1]+2])
+                self.transiciones.extend((i1, i2, s1, s2))
+            elif c == '+':
+                print('CERRADURA DE POSITIVA')
+                s = pila_transiciones.pop()
+                i1 = Transicion(s[1]+1, s[0], 'e')
+                s1 = Transicion(s[1], s[0], 'e')
+                s2 = Transicion(s[1], s[1]+2, 'e')
+                pila_transiciones.append([s[1]+1, s[1]+2])
+                self.transiciones.extend((i1, s1, s2))
             elif c == '|':
                 print("UNION")
                 s = pila_transiciones.pop()
@@ -56,7 +67,13 @@ class Analizador:
                 pila_transiciones.append([s[1]+1, s[1]+2])
                 self.transiciones.extend((i1, i2, f1, f2))
             elif c == '.':
-                pass
+                print('CONJUNCION')
+                t = pila_transiciones.pop()
+                s = pila_transiciones.pop()
+                for aux in self.transiciones:
+                    if aux.siguiente == s[1]:
+                        aux.siguiente = t[0]
+                pila_transiciones.append([s[0], t[1]])
             else:
                 print('ESTADO')
                 if pila_transiciones.__len__() > 0:
