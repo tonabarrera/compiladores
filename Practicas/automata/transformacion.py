@@ -14,12 +14,12 @@ class Transformacion:
         self.estados_deterministicos.append(estado) # un nuevo estado
         pendientes = list()
         pendientes.append(estado)
-        while pendientes.__len__() > 0:
+        while len(pendientes) > 0:
             actual = pendientes.pop()
             for simbolo in self.AFN.alfabeto:
                 estados = self.mover(actual, simbolo)
                 na = self.cerradura_epsilon(estados)
-                if na not in self.estados_deterministicos:
+                if len(na) > 0 and (na not in self.estados_deterministicos):
                     pendientes.append(na)
                     self.estados_deterministicos.append(na)
         print("break")
@@ -46,6 +46,6 @@ class Transformacion:
         estados_aux = set()
         for estado in estados:
             for transicion in self.AFN.transiciones:
-                if estado == transicion.actual and transicion.caracter == simbolo:
+                if simbolo != 'e' and estado == transicion.actual and transicion.caracter == simbolo:
                     estados_aux.add(transicion.siguiente)
         return estados_aux
