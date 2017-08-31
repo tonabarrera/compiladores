@@ -2,6 +2,7 @@
 # para pasar de un automata no deterministico a uno deterministico al puro estilo del libro de compiladores
 # mañana lo hago, solo es programar el algoritmo del libro y sha
 
+
 class Transformacion:
     def __init__(self):
         self.estados_deterministicos = list()
@@ -9,27 +10,42 @@ class Transformacion:
         self.AFD = None
 
     def convertir_automata(self):
-        estado = self.cerradura_epsilon(self.AFD.estado_inicial)
-        self.estados_deterministicos.append(estado)
-        for simbolo in self.AFN.alfabeto:
-            estados = self.mover(self.estados_deterministicos[0], simbolo)
-            if not estados in self.estados_deterministicos:
-                self.estados_deterministicos.append(estados)
+        estado = self.cerradura_epsilon(self.AFN.estado_inicial)
+        self.estados_deterministicos.append(estado) # un nuevo estado
+        pendientes = list()
+        pendientes.append(estado)
+        while pendientes.__len__() > 0:
+            actual = pendientes.pop()
+            for simbolo in self.AFN.alfabeto:
+                estados = self.mover(actual, simbolo)
+                na = self.cerradura_epsilon(estados)
+                if na not in self.estados_deterministicos:
+                    pendientes.append(na)
+                    self.estados_deterministicos.append(na)
+        print("break")
 
 
+    # recibe un solo elemento o un conjunto de estados
     def cerradura_epsilon(self, estados):
         estados_epsilon = set()
-        estados_epsilon.update(estados)
-        for estado in estados_epsilon:
+        aux = list()
+        if type(estados) is set:
+            aux.extend(estados)
+        else:
+            aux.append(estados)
+        for estado in aux:
             for t in self.AFN.transiciones:
-                if t.caracter == 'e' and t.actual == estado and (not t.siguiente in estados_epsilon):
-                    estados_epsilon.add(t.siguiente)
+                if t.caracter == 'e' and t.actual == estado and (t.siguiente not in aux):
+                    aux.append(t.siguiente)
+
+        estados_epsilon.update(aux)
+        print("adios")
         return estados_epsilon
 
     def mover(self, estados, simbolo):
-        estadosD = set()
+        estados_aux = set()
         for estado in estados:
             for transicion in self.AFN.transiciones:
-                if estado == transicion.actual and transicion.simbolo == simbolo:
-                    estadosD.add(transicion.siguiente)
-        return estadosD
+                if estado == transicion.actual and transicion.caracter == simbolo:
+                    estados_aux.add(transicion.siguiente)
+        return estados_aux
