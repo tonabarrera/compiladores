@@ -77,5 +77,5 @@ def transformar_automata():
 
 
 # correr_analizador()
-# correr_automata()
-transformar_automata()
+correr_automata()
+#transformar_automata()

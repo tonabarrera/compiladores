@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.9.1)  1 SEP 2017 15:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Arch Linux) (preloaded format=pdflatex 2017.9.1)  1 SEP 2017 17:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -396,28 +396,62 @@ Package babel Info: Making . an active character on input line 662.
 Package babel Info: Making < an active character on input line 707.
 Package babel Info: Making > an active character on input line 707.
 ))
+(/usr/share/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count92
+\lst@gtempboxa=\box26
+\lst@token=\toks19
+\lst@length=\count93
+\lst@currlwidth=\dimen112
+\lst@column=\count94
+\lst@pos=\count95
+\lst@lostspace=\dimen113
+\lst@width=\dimen114
+\lst@newlines=\count96
+\lst@lineno=\count97
+\lst@maxwidth=\dimen115
 
-LaTeX Warning: Unused global option(s):
-    [16pt].
+(/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count98
+\lst@skipnumbers=\count99
+\lst@framebox=\box27
+)
+(/usr/share/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
-(./reporte.aux
+(/usr/share/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+
+(/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+
+(/usr/share/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2017/06/24 v1.0g Graphics/color driver for pdftex
+))
+(/usr/share/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2015/06/04 1.6 listings language file
+) (./reporte.aux
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 )
 \openout1 = `reporte.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 10.
-LaTeX Font Info:    ... okay on input line 10.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -453,15 +487,30 @@ LaTeX Font Info:    ... okay on input line 10.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \. on input line 10.
-LaTeX Info: Redefining \% on input line 10.
+LaTeX Info: Redefining \. on input line 37.
+LaTeX Info: Redefining \% on input line 37.
+\c@lstlisting=\count100
+(/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count101
+\scratchdimen=\dimen116
+\scratchbox=\box28
+\nofMPsegments=\count102
+\nofMParguments=\count103
+\everyMPshowfont=\toks20
+\MPscratchCnt=\count104
+\MPscratchDim=\dimen117
+\MPnumerator=\count105
+\makeMPintoPDFobject=\count106
+\everyMPtoPDFconversion=\toks21
+)
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 11.
+(Font)              <12> on input line 38.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 11.
+(Font)              <8> on input line 38.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 11.
-[1
+(Font)              <6> on input line 38.
+ [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./reporte.toc
 LaTeX Info: Redefining \. on input line 1.
@@ -471,32 +520,34 @@ LaTeX Info: Redefining \% on input line 1.
 \openout3 = `reporte.toc'.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 24.
+(Font)              <7> on input line 51.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 24.
- [1]
-[2] (./reporte.aux
+(Font)              <5> on input line 51.
+
+[1] [2] [3] [4] (./reporte.aux
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 ) ) 
 Here is how much of TeX's memory you used:
- 1927 strings out of 492990
- 23514 string characters out of 6138689
- 97488 words of memory out of 5000000
- 5506 multiletter control sequences out of 15000+600000
- 7588 words of font info for 27 fonts, out of 8000000 for 9000
+ 4322 strings out of 492990
+ 54575 string characters out of 6138689
+ 187180 words of memory out of 5000000
+ 7870 multiletter control sequences out of 15000+600000
+ 8054 words of font info for 29 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 27i,7n,32p,173b,359s stack positions out of 5000i,500n,10000p,200000b,80000s
- </usr/share/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr7.pk> </usr/shar
-e/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmmi10.pk> </usr/share/texmf-dist
-/fonts/pk/ljfour/public/cm/dpi600/cmr10.pk> </usr/share/texmf-dist/fonts/pk/ljf
-our/public/cm/dpi600/cmbx10.pk> </home/tona/.texlive/texmf-var/fonts/pk/ljfour/
-public/cm/cmbx12.720pk> </usr/share/texmf-dist/fonts/pk/ljfour/public/cm/dpi600
-/cmr12.pk> </usr/share/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr17.pk>
-Output written on reporte.pdf (3 pages, 47561 bytes).
+ 27i,7n,40p,194b,1782s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/tona/.texlive/texmf-var/fonts/pk/ljfour/public/cm/cmtt9.600pk> </hom
+e/tona/.texlive/texmf-var/fonts/pk/ljfour/public/cm/cmr5.600pk> </usr/share/tex
+mf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr7.pk> </usr/share/texmf-dist/fonts/
+pk/ljfour/public/cm/dpi600/cmmi10.pk> </usr/share/texmf-dist/fonts/pk/ljfour/pu
+blic/cm/dpi600/cmr10.pk> </usr/share/texmf-dist/fonts/pk/ljfour/public/cm/dpi60
+0/cmbx10.pk> </home/tona/.texlive/texmf-var/fonts/pk/ljfour/public/cm/cmbx12.72
+0pk> </usr/share/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr12.pk> </usr/sh
+are/texmf-dist/fonts/pk/ljfour/public/cm/dpi600/cmr17.pk>
+Output written on reporte.pdf (5 pages, 66343 bytes).
 PDF statistics:
- 191 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
+ 266 PDF objects out of 1000 (max. 8388607)
+ 48 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

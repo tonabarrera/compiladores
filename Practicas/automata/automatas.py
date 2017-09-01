@@ -3,7 +3,7 @@ class Transicion:
         self.actual = actual
         self.siguiente = siguiente
         self.caracter = caracter
-
+    # Metodo para poder imprimir de forma legible una instancia de esta clase
     def __str__(self):
         return '{}->{}: {}'.format(self.actual, self.siguiente, self.caracter)
 
@@ -13,9 +13,10 @@ class AFN:
         self.alfabeto = set()
         self.estados_finales = set()
         self.estado_inicial = 0
-        self.estados_actuales = []
-        self.transiciones = []
+        self.estados_actuales = list()
+        self.transiciones = list()
         self.estados = set()
+        self.estado_error = -1
 
     def agregar_transicion(self, actual, siguiente, caracter):
         self.transiciones.append(Transicion(actual, siguiente, caracter))
@@ -39,7 +40,7 @@ class AFN:
     def evaluar_cadena(self, cadena):
         self.estados_actuales = self.estados_epsilon(self.estado_inicial)
         for caracter in cadena:
-            if not (caracter in self.alfabeto):
+            if caracter not in self.alfabeto:
                 return False
             siguientes_estados = self.obtener_siguientes(caracter)
             self.estados_actuales = []
@@ -52,7 +53,7 @@ class AFN:
         return False
 
     def obtener_siguientes(self, caracter):
-        siguientes = []
+        siguientes = list()
         for estado in self.estados_actuales:
             for transicion in self.transiciones:
                 if estado == transicion.actual and transicion.caracter == caracter:
@@ -60,16 +61,13 @@ class AFN:
         return siguientes
 
     def estados_epsilon(self, estados):
-        estados_epsilon = []
-        if type(estados) is list:
-            estados_epsilon.extend(estados)
-        else:
-            estados_epsilon.append(estados)
-        for estado in estados_epsilon:
+        epsilon = list()
+        epsilon.append(estados)
+        for estado in epsilon:
             for t in self.transiciones:
-                if t.caracter == 'e' and t.actual == estado and (not t.siguiente in estados_epsilon):
-                    estados_epsilon.append(t.siguiente)
-        return estados_epsilon
+                if t.caracter == 'e' and t.actual == estado and (t.siguiente not in epsilon):
+                    epsilon.append(t.siguiente)
+        return epsilon
 
 class AFD(AFN):
     def agregar_alfabeto(self, alfabeto):
@@ -77,13 +75,19 @@ class AFD(AFN):
 
     def evaluar_cadena(self, cadena):
         self.estados_actuales.append(self.estado_inicial)
+        continuar = True
         for caracter in cadena:
-            if not (caracter in self.alfabeto):
+            if caracter not in self.alfabeto:
                 return False
             for transicion in self.transiciones:
                 if transicion.actual == self.estados_actuales[0]:
                     if transicion.caracter == caracter:
                         self.estados_actuales[0] = transicion.siguiente
+                        continuar = True
                         break
+                else:
+                    continuar = False
+            if not continuar:
+                self.estados_actuales[0] = self.estado_error
 
         return self.estados_actuales[0] in self.estados_finales

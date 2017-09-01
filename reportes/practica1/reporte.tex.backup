@@ -28,7 +28,7 @@
     tabsize=2,
     morekeywords={self, append},
     emph={Transicion,__init__, True, False},
-    emphstyle=\color{deepred}
+    emphstyle=\em\color{deepred}
 }
 
 \title{Reporte: Práctica 1}
