@@ -12,10 +12,12 @@
 	\tableofcontents
 	
 	\section{Introducción}
-	Los autómatas finitos no determinista y determinista nos permiten identificar si una cadena (secuencia de símbolos) pertenece a un determinado lenguaje regular. Las principales diferencias entre estos dos tipos de autómatas son las siguientes.
+	Los autómatas finitos no determinista y determinista nos permiten identificar si una cadena (secuencia de símbolos) 
+	pertenece a un determinado lenguaje regular. Las principales diferencias entre estos dos tipos de autómatas son las siguientes.
 	
 	\begin{itemize}
-		\item Autómata finito no determinista: Un mismo símbolo puede conducir a diferentes estados desde un mismo estado, además, la cadena vacía es valida.
+		\item Autómata finito no determinista: Un mismo símbolo puede conducir a diferentes estados desde un mismo estado, 
+		además, la cadena vacía es valida.
 		\item Autómata finito determinista: El autómata tiene por cada estado y por cada símbolo sólo una transición hacia otro estado.
 	\end{itemize}
 
@@ -26,16 +28,20 @@
 	\begin{itemize}
 		\item $Q$ es un conjunto de estados finitos.
 		\item $\Sigma$ es un conjunto finito de símbolos de entrada.
-		\item $\delta$ es una función de transición que toma como argumentos un estado y un símbolo y retorna un nuevo estado. En un autómata no determinista la función devuelve un conjunto de estados que pertenecen a $Q$.
+		\item $\delta$ es una función de transición que toma como argumentos un estado y un símbolo y retorna un nuevo estado. 
+		En un autómata no determinista la función devuelve un conjunto de estados que pertenecen a $Q$.
 		\item $q_{0}$ es un estado inicial que pertenece al conjunto de estados finitos $Q$.
 		\item $F$ es un conjunto de estados finales que pertenecen al conjunto $Q$.
 	\end{itemize}
 
-	Todas estas características fueron importantes en esta práctica ya que al tenerlas en consideración se pudieron modelar los dos tipos de autómatas mediante el uso de programación orientada a objetos. Y por ende poder representar cualquier autómata finito a partir de los elementos que lo componen.
+	Todas estas características fueron importantes en esta práctica ya que al tenerlas en consideración se pudieron 
+	modelar los dos tipos de autómatas mediante el uso de programación orientada a objetos. 
+	Y por ende poder representar cualquier autómata finito a partir de los elementos que lo componen.
 	
 	\section{Desarrollo}
-	En esta práctica se uso el paradigma orientado a objetos para poder modelar cualquier autómata finito determinista o no determinista con base a sus componentes y con esto poder evaluar cualquier cadena y poder determinar si pertenece a algún determinado lenguaje.
-	Se programaron dos clases, una para el autómata determinista y otro para el no determinista.
+	En esta práctica se uso el paradigma orientado a objetos para poder modelar cualquier autómata finito determinista 
+	o no determinista con base a sus componentes y con esto poder evaluar cualquier cadena y poder determinar 
+	si pertenece a algún determinado lenguaje. Se programaron dos clases, una para el autómata determinista y otro para el no determinista.
 	
 	El código de la clase AFN fue:
 	
@@ -43,5 +49,10 @@
 	\section{Resultados}
 	hola
 	\section{Conclusiones}
-	Fue indispensable conocer los componentes de este tipo de autómatas ademas de saber el como trabajan ya que sin este conocimiento seria imposible el poder modelarlos en una clase. La parte difícil de esta practica fue el AFN ya que al poder ir a varios estados desde una mismo con el mismo símbolo por lo que aumenta su complejidad al aumentar el numero de caminos que se pueden tomar. Así que el revisar trabajos anteriores en este tema fue importante para poder solucionar este problema.
+	Fue indispensable conocer los componentes de este tipo de autómatas ademas de saber el como trabajan 
+	ya que sin este conocimiento seria imposible el poder modelarlos en una clase. La parte difícil de esta 
+	práctica fue el AFN ya que al poder ir a varios estados desde una mismo con el mismo símbolo por lo que 
+	aumenta su complejidad al aumentar el numero de caminos que se pueden tomar. 
+	Así que el revisar trabajos anteriores en este tema fue importante para poder solucionar este problema.
+	\section{Referencias}
 \end{document}
