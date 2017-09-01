@@ -72,8 +72,8 @@ def transformar_automata():
     transformer = Transformacion()
     transformer.AFN = automata
     transformer.convertir_automata()
-    #transformer.mover({0, 1, 2, 4, 7}, 'a')
-    print("Na")
+    for a in transformer.AFD.transiciones:
+        print(a)
 
 
 # correr_analizador()

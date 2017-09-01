@@ -25,14 +25,14 @@ class Analizador:
         for c in cadena:
             if c == '(':
                 if punto:
-                    while pila.__len__() > 0 and (pila[-1] == '+' or pila[-1] == '*'):
+                    while len(pila) > 0 and (pila[-1] == '+' or pila[-1] == '*'):
                         self.salida_inorden.append(pila.pop())
                     pila.append('.')
                     punto = False
                 pila.append(c)
             elif c == ')':
                 punto = True
-                while pila.__len__() > 0 and pila[-1] != '(':
+                while len(pila) > 0 and pila[-1] != '(':
                     self.salida_inorden.append(pila.pop())
                 try:
                     pila.pop()
@@ -41,19 +41,19 @@ class Analizador:
             elif c == '+' or c == '*':
                 self.salida_inorden.append(c)
             elif c == '|':
-                while pila.__len__() > 0 and (pila[-1] == '+' or pila[-1] == '*' or pila[-1] == '.'):
+                while len(pila) > 0 and (pila[-1] == '+' or pila[-1] == '*' or pila[-1] == '.'):
                     self.salida_inorden.append(pila.pop())
                 pila.append(c)
                 punto = False
             else:
                 if punto:
-                    while pila.__len__() > 0 and (pila[-1] == '+' or pila[-1] == '*'):
+                    while len(pila) > 0 and (pila[-1] == '+' or pila[-1] == '*'):
                         self.salida_inorden.append(pila.pop())
                     pila.append('.')
                 punto = True
                 self.salida_inorden.append(c)
 
-        while pila.__len__() > 0:
+        while len(pila) > 0:
             self.salida_inorden.append(pila.pop())
 
     def generar_automata(self):
