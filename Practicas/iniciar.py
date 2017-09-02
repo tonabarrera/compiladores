@@ -36,6 +36,7 @@ def correr_automata_AFN():
         else:
             print("No valida")
 
+
 def correr_automata_AFD():
     automata = AFD()
     automata.agregar_alfabeto({'a', 'b'})

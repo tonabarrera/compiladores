@@ -18,7 +18,6 @@ class Analizador:
         for t in self.transiciones:
             print(t)
 
-    # 'a*(b|cd)*
     def convertir_inorden(self, cadena):
         pila = []
         punto = False

@@ -23,7 +23,6 @@ class Transformacion:
         estado = self.cerradura_epsilon(self.AFN.estado_inicial)
         actual = SubConjunto(estado, self.etiqueta)
         self.lista.append(actual)
-        # self.estados_deterministicos.append(estado) # un nuevo estado
         pendientes = list()
         pendientes.append(actual)
         agregar = False
