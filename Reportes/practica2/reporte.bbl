@@ -1,0 +1,13 @@
+\begin{thebibliography}{1}
+
+\bibitem{compis}
+V.~A. Aho, R.~Sethi, and J.~D. Ullman, {\em Compilers: Principles, Techniques,
+  and Tools}.
+\newblock Addison Wesley, 1st~ed., 1986.
+
+\bibitem{postfijo}
+P.~Oser, ``The shunting yard algorithm.''
+  \url{http://www.oxfordmathcenter.com/drupal7/node/628}.
+\newblock Consultado: 2017-09-2.
+
+\end{thebibliography}

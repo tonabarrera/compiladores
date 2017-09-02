@@ -4,12 +4,24 @@ from expresiones.analizador import Analizador
 
 
 def correr_analizador():
-    print("Ejecutando...")
+    print("Generando el automata de la expresion: (a|b)*abb ...")
     analizador = Analizador()
-    analizador.convertir_inorden('(a|b)*abb')
-    analizador.mostar_expresion_inorden()
+    # Transformamos la expresion a postfijo
+    analizador.convertir_postfijo('(a|b)*abb')
+    analizador.mostar_expresion_postfijo()
+    # Creamos el AFN a partir de la expresion en postfijo
     analizador.generar_automata()
     analizador.mostar_automata()
+    # Probamos nuestro automata con algunas cadenas
+    print("Pruebas sobre el automata generado...")
+    automataAFN = analizador.AFN
+    for n in range(5):
+        cadena = input("-Ingresa una cadena: ")
+        print("La cadena es:")
+        if automataAFN.evaluar_cadena(cadena):
+            print("Valida")
+        else:
+            print("No valida")
 
 
 def correr_automata_AFN():
@@ -109,7 +121,7 @@ def transformar_automata():
         print(a)
 
 
-# correr_analizador()
-correr_automata_AFD()
+correr_analizador()
+# correr_automata_AFD()
 # correr_automata_AFN()
 # transformar_automata()

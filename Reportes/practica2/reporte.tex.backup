@@ -99,33 +99,7 @@
   hola
   \section{Resultados}
   A continuación se presenta el resultado de la implementación de la clase \emph{Analizador} en donde se convierte una expresión regular 
-  a un AFN para después evaluar algunas cadenas y ver si son validas. Las pruebas se realizaron con el siguiente codigo, el cual ocupa la clase 
-  \emph{AFN} que se contruye gracias a la clase \emph{Analizador} para poder llevar a cabo la evaluación de algunas cadenas.
-  
-  \begin{figure}[H]
-    \begin{center}
-      \includegraphics[width=8cm]{generacion.png}
-	\caption{Transormando la expresion regular $ (a|b)^{*}abb $ a su respectivo automata.}
-	\label{fig:generacion}
-    \end{center}
-  \end{figure}
-  
-  Como se puede observar en la figura \ref{fig:generacion} la expresion regular se pasa a notación posfija y después se puede observar como se realiza 
-  la creación de las transiciones, lo siguiente que aparece es mostrar los estados inicial y final y finalmente se muestran las transiciones resultantes. 
-  
-  Después se realizaron pruebas sobre el automata que se genero de forma similar a la práctica anterior.
-  
-  \begin{figure}[H]
-    \begin{center}
-      \includegraphics[width=8cm]{pruebas.png}
-	\caption{Pruebas sobre el automata generado.}
-	\label{fig:pruebas}
-    \end{center}
-  \end{figure}
-  
-  La generación del automata se realizo de forma correcta (figura \ref{fig:pruebas}), ya que la evaluación de las cadenas fue satisfactoria esto quiere decir que las transiciones 
-  que se muestran en la figura \ref{fig:generacion} no tuvieron errores.
-  
+  a un AFN para después evaluar algunas cadenas y ver si son validas.
   \section{Conclusiones}
   La elaboración de esta práctica fue un poco más sencilla que la anterior debido a que solo consistio en implementar el algoritmo de Thomson 
   y con ello poder construir cualquier AFN, la parte complicada de modelar este algoritmo fue la concatenación ya que requirio unos pasos extra 

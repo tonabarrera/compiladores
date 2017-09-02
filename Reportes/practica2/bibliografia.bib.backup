@@ -20,13 +20,3 @@
 	pagetotal = {537},
 }
 
-@misc{postfijo,
-  title = {The Shunting Yard Algorithm},
-  author = {Oser, P.},
-  publisher = {The Oxford Math Center},
-  howpublished = {\url{http://www.oxfordmathcenter.com/drupal7/node/628}},
-  note = {Consultado: 2017-09-2}
-}
-
-
-

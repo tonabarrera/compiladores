@@ -1,64 +1,66 @@
 from automata.automatas import Transicion
-
+from automata.automatas import AFN
 
 class Analizador:
     def __init__(self):
-        self.salida_inorden = []
-        self.transiciones = []
+        self.salida_postfijo = list()
+        self.transiciones = list()
         self.pila_transiciones = []
         self.POSITIVA = 0
         self.KLEENE = 1
+        self.AFN = AFN()
 
-    def mostar_expresion_inorden(self):
-        print(self.salida_inorden)
+    def mostar_expresion_postfijo(self):
+        print(self.salida_postfijo)
 
     def mostar_automata(self):
-        print('Inicial: %s Final: %s' % (self.pila_transiciones[0][0], self.pila_transiciones[0][1]))
+        print('Inicial: %s Finales: %s' % (self.AFN.estado_inicial, self.AFN.estados_finales))
         print("Transiciones:")
-        for t in self.transiciones:
+        for t in self.AFN.transiciones:
             print(t)
 
-    def convertir_inorden(self, cadena):
+    def convertir_postfijo(self, cadena):
         pila = []
         punto = False
         for c in cadena:
             if c == '(':
                 if punto:
                     while len(pila) > 0 and (pila[-1] == '+' or pila[-1] == '*'):
-                        self.salida_inorden.append(pila.pop())
+                        self.salida_postfijo.append(pila.pop())
                     pila.append('.')
                     punto = False
                 pila.append(c)
             elif c == ')':
                 punto = True
                 while len(pila) > 0 and pila[-1] != '(':
-                    self.salida_inorden.append(pila.pop())
+                    self.salida_postfijo.append(pila.pop())
                 try:
                     pila.pop()
                 except IndexError as e:
                     raise e
             elif c == '+' or c == '*':
-                self.salida_inorden.append(c)
+                self.salida_postfijo.append(c)
             elif c == '|':
                 while len(pila) > 0 and (pila[-1] == '+' or pila[-1] == '*' or pila[-1] == '.'):
-                    self.salida_inorden.append(pila.pop())
+                    self.salida_postfijo.append(pila.pop())
                 pila.append(c)
                 punto = False
             else:
                 if punto:
                     while len(pila) > 0 and (pila[-1] == '+' or pila[-1] == '*'):
-                        self.salida_inorden.append(pila.pop())
+                        self.salida_postfijo.append(pila.pop())
                     pila.append('.')
                 punto = True
-                self.salida_inorden.append(c)
+                self.salida_postfijo.append(c)
 
         while len(pila) > 0:
-            self.salida_inorden.append(pila.pop())
+            self.salida_postfijo.append(pila.pop())
 
     def generar_automata(self):
         inicial = 1
         final = 2
-        for c in self.salida_inorden:
+        self.AFN.alfabeto.add('e')
+        for c in self.salida_postfijo:
             if c == '*':
                 print('CERRADURA KLEENE')
                 s = self.pila_transiciones.pop()
@@ -93,6 +95,11 @@ class Analizador:
                 transicion = Transicion(inicial, final, c)
                 self.pila_transiciones.append([inicial, final])
                 self.transiciones.append(transicion)
+                self.AFN.alfabeto.add(c)
+
+        self.AFN.agregar_inicial(self.pila_transiciones[0][0])
+        self.AFN.agregar_finales({self.pila_transiciones[0][1]})
+        self.AFN.transiciones = self.transiciones
 
     def cerradura(self, s, tipo):
         i1 = Transicion(s[1] + 1, s[0], 'e')
