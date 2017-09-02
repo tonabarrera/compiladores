@@ -12,7 +12,7 @@ def correr_analizador():
     analizador.mostar_automata()
 
 
-def correr_automata():
+def correr_automata_AFN():
     automata = AFN()
     automata.agregar_alfabeto({'a', 'b'})
     automata.agregar_estado(0)
@@ -28,11 +28,41 @@ def correr_automata():
     automata.agregar_transicion(2, 3, 'b')
     automata.agregar_transicion(0, 0, 'a')
     automata.agregar_transicion(0, 0, 'b')
+    for n in range(5):
+        cadena = input("-Ingresa una cadena: ")
+        print("La cadena es:")
+        if automata.evaluar_cadena(cadena):
+            print("Valida")
+        else:
+            print("No valida")
 
-    if automata.evaluar_cadena('aaabbabbabb'):
-        print("Cadena valida")
-    else:
-        print("Cadena no valida")
+def correr_automata_AFD():
+    automata = AFD()
+    automata.agregar_alfabeto({'a', 'b'})
+    automata.agregar_estado(0)
+    automata.agregar_estado(1)
+    automata.agregar_estado(2)
+    automata.agregar_estado(3)
+
+    automata.agregar_inicial(0)
+    automata.agregar_finales({3})
+
+    automata.agregar_transicion(0, 1, 'a')
+    automata.agregar_transicion(1, 2, 'b')
+    automata.agregar_transicion(2, 3, 'b')
+    automata.agregar_transicion(0, 0, 'b')
+    automata.agregar_transicion(1, 1, 'a')
+    automata.agregar_transicion(2, 1, 'a')
+    automata.agregar_transicion(3, 1, 'a')
+    automata.agregar_transicion(3, 0, 'b')
+
+    for n in range(5):
+        cadena = input("-Ingresa una cadena: ")
+        print("La cadena es:")
+        if automata.evaluar_cadena(cadena):
+            print("Valida")
+        else:
+            print("No valida")
 
 
 def transformar_automata():
@@ -77,5 +107,6 @@ def transformar_automata():
 
 
 # correr_analizador()
-correr_automata()
-#transformar_automata()
+correr_automata_AFD()
+# correr_automata_AFN
+# transformar_automata()

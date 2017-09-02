@@ -1,0 +1,13 @@
+\begin{thebibliography}{1}
+
+\bibitem{compis}
+V.~A. Aho, R.~Sethi, and J.~D. Ullman, {\em Compilers: Principles, Techniques,
+  and Tools}.
+\newblock Addison Wesley, 1st~ed., 1986.
+
+\bibitem{automata}
+J.~E. Hopcroft, R.~Motwani, and J.~D. Ullman, {\em Introduction to Automata
+  Theory, Languages, and Computation}.
+\newblock Addison Wesley, 2nd~ed., 2001.
+
+\end{thebibliography}

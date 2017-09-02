@@ -3,6 +3,7 @@ class Transicion:
         self.actual = actual
         self.siguiente = siguiente
         self.caracter = caracter
+
     # Metodo para poder imprimir de forma legible una instancia de esta clase
     def __str__(self):
         return '{}->{}: {}'.format(self.actual, self.siguiente, self.caracter)
@@ -68,6 +69,7 @@ class AFN:
                 if t.caracter == 'e' and t.actual == estado and (t.siguiente not in epsilon):
                     epsilon.append(t.siguiente)
         return epsilon
+
 
 class AFD(AFN):
     def agregar_alfabeto(self, alfabeto):
