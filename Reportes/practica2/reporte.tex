@@ -96,6 +96,13 @@
   Finalmente, para la evaluación de la expresión regular primero la pasamos a postfijo con el algoritmo shunting yard \cite{postfijo} que se utiliza para la 
   evaluación de expresiones matemáticas pero adaptándolo a expresiones regulares.
   \section{Desarrollo}
+  La siguiente clase contiene todos los métodos necesarios para obtener un AFN a través de una expresión regular los métodos mas importantes de esta clase son:
+  
+  \begin{itemize}
+  	\item \emph{convertir\_postfijo}. Este método genera la expresión en postfijo mediante el uso del algoritmo shuting yard \cite{postfijo} por lo que utilizamos una pila y una cola, en la pila se almacenan los paréntesis y operadores que irán saliendo de esta pila y se pondrán en la cola dependiendo de la lectura de carácter que se haga. 
+  	Por otro lado, en la cola se guardara la salida en postfijo que después sera utilizada por el método generar autómata
+  	\item \emph{generar\_automata}. Este método toma la salida del método anterior y haciendo uso de las construcciones de Thomson obtiene el autómata Para hacer esto utiliza una pila donde iremos guardando las transiciones que se generen y después sacándolas cuando sea necesario volver a utilizarlas y formar una nueva transición, del mismo modo guardara las transiciones resultantes, el alfabeto y los estados inicial y final en una instancia de la clase \emph{AFN} para después ser usada en la evaluación de cadenas.
+  \end{itemize} 
   \begin{lstlisting}
 from automata.automatas import Transicion
 from automata.automatas import AFN
@@ -211,6 +218,9 @@ class Analizador:
 			i2 = Transicion(s[1] + 1, s[1] + 2, 'e')
 			self.transiciones.append(i2)
   \end{lstlisting}
+  
+  El resto de métodos solo son auxiliares y sirven para mostrar el estado del autómata o para imprimir la cadena en postfijo. 
+  
   \section{Resultados}
   A continuación se presenta el resultado de la implementación de la clase \emph{Analizador} en donde se convierte una expresión regular 
   a un AFN para después evaluar algunas cadenas y ver si son validas. Las pruebas se realizaron con el siguiente código, el cual ocupa la clase 

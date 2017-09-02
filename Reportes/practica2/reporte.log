@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.3.19)  2 SEP 2017 18:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6210 64-bit) (preloaded format=pdflatex 2017.3.19)  2 SEP 2017 18:18
 entering extended mode
 **./reporte.tex
 (reporte.tex
@@ -635,31 +635,31 @@ Package pdftex.def Info: cerradura.png used on input line 89.
 (pdftex.def)             Requested size: 170.71652pt x 90.0565pt.
  [2 <./e.png> <./a.png> <./union.png> <./concatenacion.png>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 116.
+(Font)              <9> on input line 123.
  [3 <./cerradura.png>]
-[4] <generacion.png, id=38, 679.53876pt x 618.31pt>
+[4] [5] <generacion.png, id=42, 679.53876pt x 618.31pt>
 File: generacion.png Graphic file (type png)
  <use generacion.png>
-Package pdftex.def Info: generacion.png used on input line 243.
+Package pdftex.def Info: generacion.png used on input line 253.
 (pdftex.def)             Requested size: 284.52756pt x 258.88647pt.
 
-[5] <pruebas.png, id=43, 679.53876pt x 437.635pt>
+<pruebas.png, id=43, 679.53876pt x 437.635pt>
 File: pruebas.png Graphic file (type png)
  <use pruebas.png>
-Package pdftex.def Info: pruebas.png used on input line 256.
+Package pdftex.def Info: pruebas.png used on input line 266.
 (pdftex.def)             Requested size: 284.52756pt x 183.23782pt.
- [6 <./generacion.png> <./pruebas.png>] (reporte.bbl) [7] (reporte.aux
+ [6 <./generacion.png>] (reporte.bbl) [7 <./pruebas.png>] (reporte.aux
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 ) ) 
 Here is how much of TeX's memory you used:
- 5336 strings out of 493333
- 70072 string characters out of 3139194
- 211764 words of memory out of 3000000
- 8784 multiletter control sequences out of 15000+200000
+ 5337 strings out of 493333
+ 70090 string characters out of 3139194
+ 209764 words of memory out of 3000000
+ 8785 multiletter control sequences out of 15000+200000
  9181 words of font info for 33 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,7n,40p,239b,1790s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 39i,7n,40p,562b,1794s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/P
 rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program F
 iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiK
@@ -671,7 +671,7 @@ m/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.
 pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/
 Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program 
 Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on reporte.pdf (8 pages, 295518 bytes).
+Output written on reporte.pdf (8 pages, 298144 bytes).
 PDF statistics:
  92 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
