@@ -1,5 +1,4 @@
 # Compiladores
-===================
 Cosas mágicas de la materia de compiladores
 ----------
 Practicas y reportes en su respectivo folder
