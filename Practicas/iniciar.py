@@ -13,6 +13,7 @@ def correr_analizador():
 
 
 def correr_automata_AFN():
+    print("Automata no determinista")
     automata = AFN()
     automata.agregar_alfabeto({'a', 'b'})
     automata.agregar_estado(0)
@@ -38,6 +39,7 @@ def correr_automata_AFN():
 
 
 def correr_automata_AFD():
+    print("Automata determinista")
     automata = AFD()
     automata.agregar_alfabeto({'a', 'b'})
     automata.agregar_estado(0)
@@ -109,5 +111,5 @@ def transformar_automata():
 
 # correr_analizador()
 correr_automata_AFD()
-# correr_automata_AFN
+# correr_automata_AFN()
 # transformar_automata()
