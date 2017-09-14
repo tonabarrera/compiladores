@@ -19,7 +19,8 @@ class Transformacion:
         self.etiqueta = 'A'
 
     def convertir_automata(self):
-        self.AFD.alfabeto = {'a', 'b'}
+        self.AFD.alfabeto = self.AFN.alfabeto
+        self.AFD.alfabeto.remove('e')
         estado = self.cerradura_epsilon(self.AFN.estado_inicial)
         actual = SubConjunto(estado, self.etiqueta)
         self.lista.append(actual)
