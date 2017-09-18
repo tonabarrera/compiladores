@@ -1,0 +1,22 @@
+\documentclass[titlepage,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[letterpaper, margin=2.5cm]{geometry}
+\usepackage{float}
+\usepackage{lscape}
+\usepackage{graphicx}
+
+%opening
+\title{Mapa conceptual sobre compiladores}
+\author{Barrera Pérez Carlos Tonatihu \\ Profesor: Saucedo Delgado Rafael Norman \\ Compiladores \\ Grupo: 3CM6 }
+
+\begin{document}
+\begin{landscape}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=\textheight, height=\textwidth]{Compiladores.jpg}
+\caption{Mapa conceptual.}
+\label{fig:cerradura}
+\end{center}
+\end{figure}
+\end{landscape}
+\end{document}
