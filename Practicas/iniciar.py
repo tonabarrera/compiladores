@@ -81,7 +81,7 @@ class Principal:
 
 
     def transformar_automata(self):
-        print('Creando auntomata no deterministico')
+        print('Transformando AFN a AFD')
         automata = AFN()
         automata.agregar_alfabeto({'a', 'b'})
 

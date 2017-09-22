@@ -1,6 +1,3 @@
-# Cosas bien chidas como la cerradura epsilon y los movimientos que los estados de este subconjunto pueden hacer
-# para pasar de un automata no deterministico a uno deterministico al puro estilo del libro de compiladores
-# mañana lo hago, solo es programar el algoritmo del libro y sha
 from automata.automatas import AFD
 
 
@@ -26,40 +23,34 @@ class Transformacion:
         self.lista.append(actual)
         pendientes = list()
         pendientes.append(actual)
-        agregar = False
+        agregar = True
         self.etiqueta = chr(ord(self.etiqueta) + 1)
-
+        nuevo = None
         while len(pendientes) > 0:
             actual = pendientes.pop()
             for simbolo in self.AFD.alfabeto:
-                estados = self.mover(actual.estados, simbolo)
-                na = self.cerradura_epsilon(estados)
-                if na == actual.estados:
-                    print("Entro")
-                    nuevo = actual
-                else:
-                    nuevo = SubConjunto(na, self.etiqueta)
+                estados = self.cerradura_epsilon(self.mover(actual.estados, simbolo))
+                agregar = True
                 for i in self.lista:
-                    if len(na) > 0 and (na != i.estados):
-                        agregar = True
-                    else:
+                    if i.estados == estados:
                         agregar = False
-                        nuevo = i
+                        nuevo  = i
                         break
-                if agregar:
-                    self.lista.append(nuevo)
+                if not agregar:
+                    nuevo = SubConjunto(estados, self.etiqueta)
                     pendientes.append(nuevo)
+                    self.lista.append(nuevo)
                     self.etiqueta = chr(ord(self.etiqueta) + 1)
-                    agregar = False
                 print("La transicion %s (%s) -> %s (%s) : %s" % (actual.estados, actual.etiqueta,
                                                                  nuevo.estados, nuevo.etiqueta, simbolo))
                 self.AFD.agregar_transicion(actual.etiqueta, nuevo.etiqueta, simbolo)
-        for ga in self.lista:
-            if self.AFN.estado_inicial in ga.estados:
-                self.AFD.estado_inicial = ga.etiqueta
+        
+        for elemento in self.lista:
+            if self.AFN.estado_inicial in elemento.estados:
+                self.AFD.estado_inicial = elemento.etiqueta
             for final in self.AFN.estados_finales:
-                if final in ga.estados:
-                    self.AFD.estados_finales.add(ga.etiqueta)
+                if final in elemento.estados:
+                    self.AFD.estados_finales.add(elemento.etiqueta)
         print("Estado inicial %s" % self.AFD.estado_inicial)
         print("Estados finales %s" % self.AFD.estados_finales)
 
