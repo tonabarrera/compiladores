@@ -36,13 +36,12 @@ class Transformacion:
                         agregar = False
                         nuevo  = i
                         break
-                if not agregar:
+                if agregar:
                     nuevo = SubConjunto(estados, self.etiqueta)
                     pendientes.append(nuevo)
                     self.lista.append(nuevo)
                     self.etiqueta = chr(ord(self.etiqueta) + 1)
-                print("La transicion %s (%s) -> %s (%s) : %s" % (actual.estados, actual.etiqueta,
-                                                                 nuevo.estados, nuevo.etiqueta, simbolo))
+                print("Transicion %s -> %s con: %s" % (actual.estados, nuevo.estados, simbolo))
                 self.AFD.agregar_transicion(actual.etiqueta, nuevo.etiqueta, simbolo)
         
         for elemento in self.lista:
@@ -51,8 +50,6 @@ class Transformacion:
             for final in self.AFN.estados_finales:
                 if final in elemento.estados:
                     self.AFD.estados_finales.add(elemento.etiqueta)
-        print("Estado inicial %s" % self.AFD.estado_inicial)
-        print("Estados finales %s" % self.AFD.estados_finales)
 
     # recibe un solo elemento o un conjunto de estados
     def cerradura_epsilon(self, estados):

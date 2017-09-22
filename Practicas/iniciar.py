@@ -119,8 +119,22 @@ class Principal:
         transformer.AFN = automata
         print('Transformando el automata')
         transformer.convertir_automata()
-        for a in transformer.AFD.transiciones:
-            print(a)
+        print()
+        print('-Automata deterministico final:')
+        print("Estado inicial %s" % transformer.AFD.estado_inicial)
+        print("Estados finales %s" % transformer.AFD.estados_finales)
+        print("Transiciones")
+        for t in transformer.AFD.transiciones:
+            print(t)
+
+        print('Evaluacion de cadenas:')
+        for n in range(5):
+            cadena = input("-Ingresa una cadena: ")
+            print("La cadena es:")
+            if transformer.AFD.evaluar_cadena(cadena):
+                print("Valida")
+            else:
+                print("No valida")
 
 
 #correr_analizador()
