@@ -115,8 +115,7 @@ class Principal:
         automata.agregar_transicion(8, 9, 'b')
         automata.agregar_transicion(9, 10, 'b')
 
-        transformer = Transformacion()
-        transformer.AFN = automata
+        transformer = Transformacion(automata)
         print('Transformando el automata')
         transformer.convertir_automata()
         print()
