@@ -56,7 +56,7 @@
 El transformar un autómata no determinista a uno determinista surge de la necesidad de modelar dicho autómata computacionalmente. Esto debido a que la implementación de un AFN debido a los múltiples movimientos que podría realizar en un estado con un sólo símbolo
 \begin{figure}[H]
         \begin{center}
-        \includegraphics[width=10cm]{AFN.png}
+        \includegraphics[width=12cm]{AFN.png}
         \caption{AFN que reconoce el lenguaje $(a|b)^{*}abb$.}
         \label{fig:AFN}
         \end{center}
@@ -85,7 +85,7 @@ Este conjunto de funciones se ejecutaran las veces que sean necesarias hasta que
 
 \begin{figure}[H]
         \begin{center}
-        \includegraphics[width=10cm]{AFD.png}
+        \includegraphics[width=11cm]{AFD.png}
         \caption{AFD que reconoce el mismo lenguaje que el AFN de la figura \ref{fig:AFN}.}
         \label{fig:AFD}
         \end{center}
@@ -176,10 +176,12 @@ class Transformacion:
 Para realizar las pruebas se utilizo la siguiente función. En donde lo primero que se hace es crear un AFN basado en las clases creadas en prácticas anteriores para después transformarlo y realizar pruebas con diversas cadenas sobre este nuevo autómata determinista
 \begin{lstlisting}
 def transformar_automata(self):
+    # Creacion de un AFN
 	print('Transformando AFN a AFD')
 	automata = AFN()
+	#Se establece su alfabeto
 	automata.agregar_alfabeto({'a', 'b'})
-	
+	# Agregamos los estados que tendra dicho automata
 	automata.agregar_estado(0)
 	automata.agregar_estado(1)
 	automata.agregar_estado(2)
@@ -191,10 +193,10 @@ def transformar_automata(self):
 	automata.agregar_estado(8)
 	automata.agregar_estado(9)
 	automata.agregar_estado(10)
-	
+	# Se indican los estados finales y el inicial
 	automata.agregar_inicial(0)
 	automata.agregar_finales({10})
-	
+	# Por ultimo agregamos las transiciones necesarias
 	automata.agregar_transicion(0, 1, 'e')
 	automata.agregar_transicion(1, 2, 'e')
 	automata.agregar_transicion(1, 4, 'e')
@@ -210,17 +212,23 @@ def transformar_automata(self):
 	automata.agregar_transicion(8, 9, 'b')
 	automata.agregar_transicion(9, 10, 'b')
 	
+	#Creamos un objeto de nuestra clase Transformacion y le
+	# indicamos el AFN con el que trabajara
 	transformer = Transformacion(automata)
 	print('Transformando el automata')
+	# A nuestra instancia de Transformacion le decimos que trasforme el automata
 	transformer.convertir_automata()
 	print()
+	# Por ultimo solo mostramos los componentes del AFD final
 	print('-Automata deterministico final:')
 	print("Estado inicial %s" % transformer.AFD.estado_inicial)
 	print("Estados finales %s" % transformer.AFD.estados_finales)
 	print("Transiciones")
 	for t in transformer.AFD.transiciones:
 		print(t)
-	
+		
+	# Realizamos pruebas con este AFD, mediante el ingreso
+	# de cadenas en consola para su evaluacion
 	print('Evaluacion de cadenas:')
 	for n in range(5):
 		cadena = input("-Ingresa una cadena: ")
@@ -237,6 +245,7 @@ def transformar_automata(self):
         \label{fig:creacion}
         \end{center}
     \end{figure}
+    En la imagen \ref{fig:creacion} lo primero que se puede es el como se generan los estados de nuestro autómata determinista, los cuales son conjuntos de estados del AFN, lo siguiente es imprimir los componentes de nuestro nuevo AFD, comenzamos por el estado final, después los estados finales y finalmente imprimimos las transiciones mostradas al inicio pero ahora reetiquetadas.
     \begin{figure}[H]
         \begin{center}
         \includegraphics[width=\textwidth]{2.png}
@@ -244,6 +253,7 @@ def transformar_automata(self):
         \label{fig:pruebas}
         \end{center}
     \end{figure}
+    Lo primero que se observa en la figura \ref{fig:pruebas} es las transiciones que se obtuvieron después del proceso de transformación, lo siguiente es la evaluación de un conjunto de cadenas ingresadas por consola, es en esta parte en la que se puede observar que la transformación se realizó correctamente debido a que la evaluación de las cadenas es correcta.
 \section{Conclusiones}
     El desarrollo de esta práctica fue sencillo debido a que al tener los algoritmos ya definidos \cite{compis} solo se tuvo que modelar dichos algoritmos en un lenguaje orientado a objetos en este caso Python y después combinar esta práctica con la primer práctica realizada para la evaluación de cadenas. 
     
