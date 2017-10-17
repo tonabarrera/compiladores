@@ -1,3 +1,7 @@
+# S -> aSb
+# S -> c
+
+
 class Analizador(object):
     def __init__(self, token):
         self.token = token
@@ -11,17 +15,22 @@ class Analizador(object):
                 return False
             if not self.consumir('b'):
                 return False
-            return True
-        if self.token[self.i] == 'c':
-            return self.consumir('c')
+        elif self.token[self.i] == 'c':
+            if not self.consumir('c'):
+                return False
         else:
             return False
+        return True
 
     def consumir(self, simbolo):
+        if self.i >= len(self.token):
+            return False
         if simbolo == self.token[self.i]:
             self.i += 1
             return True
         return False
-
-ejem = Analizador('aabb')
-print(ejem.s())
+ejem = Analizador('aaaaacbbbbbb')
+if ejem.s() and ejem.i == len(ejem.token):
+    print('Bien')
+else:
+    print('Mal')
