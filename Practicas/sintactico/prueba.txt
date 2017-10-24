@@ -1,0 +1,14 @@
+var hola;
+var temp;
+
+asig(id, 5);
+sumar(id, id, 7);
+
+mayorque(id, id);
+
+if (mayorque(id, 5))
+    restar(id, id, 7);
+while (menorque(id, 10))
+    sumar(id, id, id);
+
+eof

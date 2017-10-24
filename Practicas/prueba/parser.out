@@ -1,0 +1,166 @@
+Created by PLY version 3.10 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> expression
+Rule 1     expression -> expression SUMA term
+Rule 2     expression -> term
+Rule 3     term -> term PRODUCTO factor
+Rule 4     term -> factor
+Rule 5     factor -> NUMERO
+Rule 6     factor -> IZQPARENTESIS expression DERPARENTESIS
+
+Terminals, with rules where they appear
+
+DERPARENTESIS        : 6
+IZQPARENTESIS        : 6
+NUMERO               : 5
+PRODUCTO             : 3
+SUMA                 : 1
+error                : 
+
+Nonterminals, with rules where they appear
+
+expression           : 1 6 0
+factor               : 3 4
+term                 : 1 2 3
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . expression
+    (1) expression -> . expression SUMA term
+    (2) expression -> . term
+    (3) term -> . term PRODUCTO factor
+    (4) term -> . factor
+    (5) factor -> . NUMERO
+    (6) factor -> . IZQPARENTESIS expression DERPARENTESIS
+
+    NUMERO          shift and go to state 4
+    IZQPARENTESIS   shift and go to state 5
+
+    expression                     shift and go to state 1
+    term                           shift and go to state 2
+    factor                         shift and go to state 3
+
+state 1
+
+    (0) S' -> expression .
+    (1) expression -> expression . SUMA term
+
+    SUMA            shift and go to state 6
+
+
+state 2
+
+    (2) expression -> term .
+    (3) term -> term . PRODUCTO factor
+
+    SUMA            reduce using rule 2 (expression -> term .)
+    $end            reduce using rule 2 (expression -> term .)
+    DERPARENTESIS   reduce using rule 2 (expression -> term .)
+    PRODUCTO        shift and go to state 7
+
+
+state 3
+
+    (4) term -> factor .
+
+    PRODUCTO        reduce using rule 4 (term -> factor .)
+    SUMA            reduce using rule 4 (term -> factor .)
+    $end            reduce using rule 4 (term -> factor .)
+    DERPARENTESIS   reduce using rule 4 (term -> factor .)
+
+
+state 4
+
+    (5) factor -> NUMERO .
+
+    PRODUCTO        reduce using rule 5 (factor -> NUMERO .)
+    SUMA            reduce using rule 5 (factor -> NUMERO .)
+    $end            reduce using rule 5 (factor -> NUMERO .)
+    DERPARENTESIS   reduce using rule 5 (factor -> NUMERO .)
+
+
+state 5
+
+    (6) factor -> IZQPARENTESIS . expression DERPARENTESIS
+    (1) expression -> . expression SUMA term
+    (2) expression -> . term
+    (3) term -> . term PRODUCTO factor
+    (4) term -> . factor
+    (5) factor -> . NUMERO
+    (6) factor -> . IZQPARENTESIS expression DERPARENTESIS
+
+    NUMERO          shift and go to state 4
+    IZQPARENTESIS   shift and go to state 5
+
+    expression                     shift and go to state 8
+    term                           shift and go to state 2
+    factor                         shift and go to state 3
+
+state 6
+
+    (1) expression -> expression SUMA . term
+    (3) term -> . term PRODUCTO factor
+    (4) term -> . factor
+    (5) factor -> . NUMERO
+    (6) factor -> . IZQPARENTESIS expression DERPARENTESIS
+
+    NUMERO          shift and go to state 4
+    IZQPARENTESIS   shift and go to state 5
+
+    term                           shift and go to state 9
+    factor                         shift and go to state 3
+
+state 7
+
+    (3) term -> term PRODUCTO . factor
+    (5) factor -> . NUMERO
+    (6) factor -> . IZQPARENTESIS expression DERPARENTESIS
+
+    NUMERO          shift and go to state 4
+    IZQPARENTESIS   shift and go to state 5
+
+    factor                         shift and go to state 10
+
+state 8
+
+    (6) factor -> IZQPARENTESIS expression . DERPARENTESIS
+    (1) expression -> expression . SUMA term
+
+    DERPARENTESIS   shift and go to state 11
+    SUMA            shift and go to state 6
+
+
+state 9
+
+    (1) expression -> expression SUMA term .
+    (3) term -> term . PRODUCTO factor
+
+    SUMA            reduce using rule 1 (expression -> expression SUMA term .)
+    $end            reduce using rule 1 (expression -> expression SUMA term .)
+    DERPARENTESIS   reduce using rule 1 (expression -> expression SUMA term .)
+    PRODUCTO        shift and go to state 7
+
+
+state 10
+
+    (3) term -> term PRODUCTO factor .
+
+    PRODUCTO        reduce using rule 3 (term -> term PRODUCTO factor .)
+    SUMA            reduce using rule 3 (term -> term PRODUCTO factor .)
+    $end            reduce using rule 3 (term -> term PRODUCTO factor .)
+    DERPARENTESIS   reduce using rule 3 (term -> term PRODUCTO factor .)
+
+
+state 11
+
+    (6) factor -> IZQPARENTESIS expression DERPARENTESIS .
+
+    PRODUCTO        reduce using rule 6 (factor -> IZQPARENTESIS expression DERPARENTESIS .)
+    SUMA            reduce using rule 6 (factor -> IZQPARENTESIS expression DERPARENTESIS .)
+    $end            reduce using rule 6 (factor -> IZQPARENTESIS expression DERPARENTESIS .)
+    DERPARENTESIS   reduce using rule 6 (factor -> IZQPARENTESIS expression DERPARENTESIS .)
+
