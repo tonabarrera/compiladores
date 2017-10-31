@@ -23,6 +23,7 @@ class AnalizadorLexico:
             print('Valido')
         else:
             print('No valido')
+            print(sintactico.token[sintactico.i])
 
 analizador = AnalizadorLexico()
 archivo = open('prueba.txt', 'r')
