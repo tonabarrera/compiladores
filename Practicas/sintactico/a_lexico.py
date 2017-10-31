@@ -1,5 +1,6 @@
-from sintactico import reglas
-from sintactico.ply.lex import lex
+import reglas
+from ply.lex import lex
+from super_analizador import SuperAnalizador
 
 
 class AnalizadorLexico:
@@ -7,13 +8,21 @@ class AnalizadorLexico:
         self.lexer = lex(module=reglas)
 
     def analizar(self, cadena):
+        entrada = ''
         self.lexer.input(cadena)
-        token = self.lexer.token()
+        for token in self.lexer:
+            entrada += token.type
 
-        while token is not None:
-            print(token)
-            token = self.lexer.token()
+        print(entrada)
 
+        sintactico = SuperAnalizador(entrada)
+        resultado = sintactico.A()
+        print(sintactico.i)
+        print(len(sintactico.token))
+        if sintactico.i == len(sintactico.token):
+            print('Valido')
+        else:
+            print('No valido')
 
 analizador = AnalizadorLexico()
 archivo = open('prueba.txt', 'r')

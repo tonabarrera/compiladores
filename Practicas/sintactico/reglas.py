@@ -1,37 +1,45 @@
 tokens = [
-    'IZQPARENTESIS',
-    'DERPARENTESIS',
-    'COMA',
-    'PUNTOCOMA',
-    'IDENTIFICADOR',
-    'NUMERO',
+    'p',
+    'q',
+    'c',
+    'z',
+    'a',
+    'n',
 ]
 palabras_reservadas = {
-    'if': 'IF',
-    'while': 'WHILE',
-    'var': 'VAR',
-    'asig': 'ASIG',
-    'sumar': 'SUMAR',
-    'mayorque': 'MAYOR_QUE',
-    'restar': 'RESTAR',
-    'menorque': 'MENOR_QUE',
-    'eof': 'EOF',
+    'if': 'i',
+    'while': 'l',
+    'var': 'v',
+    'asig': 'b',
+    'sumar': 'o',
+    'mayorque': 'm',
+    'restar': 'o',
+    'menorque': 'm',
+    'eof': 'f',
 }
 tokens += list(palabras_reservadas.values())
 
-t_IZQPARENTESIS = r'\('
-t_DERPARENTESIS = r'\)'
-t_COMA = r','
-t_PUNTOCOMA = r';'
+# Parentesis izq
+t_p = r'\('
+# Parentesis der
+t_q = r'\)'
+# Coma
+t_c = r','
+# Punto y coma
+t_z = r';'
 
 
-def t_IDENTIFICADOR(t):
+# ID
+def t_a(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = palabras_reservadas.get(t.value, 'IDENTIFICADOR')  # Check for reserved words
+
+    # Check for reserved words
+    t.type = palabras_reservadas.get(t.value, 'a')
     return t
 
 
-def t_NUMERO(t):
+# Numero
+def t_n(t):
     r'\d+'
     t.value = int(t.value)
     return t
