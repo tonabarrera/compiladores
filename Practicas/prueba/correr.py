@@ -1,8 +1,9 @@
-from prueba import lexer_rules, parser_rules
-from prueba.ply.lex import lex
-from prueba.ply.yacc import yacc
+import lexer_rules
+import parser_rules
+from ply.lex import lex
+from ply.yacc import yacc
 
-text = "(14 + 6) * 2"
+text = "7 + (14 + 6) * 2 + 5"
 lexer = lex(module=lexer_rules)
 lexer.input(text)
 token = lexer.token()

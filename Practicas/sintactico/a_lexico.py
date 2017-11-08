@@ -17,13 +17,10 @@ class AnalizadorLexico:
 
         sintactico = SuperAnalizador(entrada)
         resultado = sintactico.A()
-        print(sintactico.i)
-        print(len(sintactico.token))
         if sintactico.i == len(sintactico.token):
-            print('Valido')
+            print('Valida')
         else:
-            print('No valido')
-            print(sintactico.token[sintactico.i])
+            print('No valida')
 
 analizador = AnalizadorLexico()
 archivo = open('prueba.txt', 'r')

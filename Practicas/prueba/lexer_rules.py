@@ -11,6 +11,7 @@ t_PRODUCTO = r"\*"
 t_IZQPARENTESIS = r"\("
 t_DERPARENTESIS = r"\)"
 
+
 def t_NUMERO(token):
     r"[1-9][0-9]*"
     token.value = int(token.value)
@@ -18,9 +19,11 @@ def t_NUMERO(token):
 
 t_ignore = " \t"
 
+
 def t_NEWLINE(token):
     r"\n+"
     token.lexer.lineno += len(token.value)
+
 
 def t_error(token):
     message = "Token desconocido:"
