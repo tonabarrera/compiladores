@@ -37,7 +37,8 @@ emphstyle=\color{deepred}
 
 %opening
 \title{Reporte: Práctica 5}
-\author{Barrera Pérez Carlos Tonatihu \\ Profesor: Saucedo Delgado Rafael Norman 
+\author{Barrera Pérez Carlos Tonatihu \\ Profesor: Saucedo Delgado Rafael 
+Norman 
 \\ Compiladores \\ Grupo: 3CM6}
 
 \begin{document}
@@ -46,24 +47,34 @@ emphstyle=\color{deepred}
 \tableofcontents
 \newpage
 \section{Introducción}
+Un analizador por descenso recursivo es un analizador sintáctico de arriba hacia abajo en el cual un conjunto de métodos recursivos son usados para procesar una entrada.
+El análisis de arriba hacia abajo puede ser visto como un intento de encontrar la derivación mas a la izquierda para una cadena.
+Esto genera que el árbol de sintaxis sea construido desde la raíz y creando nodos en preorden. \cite{compis}
 
+En este tipo de analizador se tiene un método asociado a cada símbolo no terminal de la gramática
 \section{Desarrollo}
 \section{Resultados}
 \newpage
 \section{Conclusiones}
 El analizador sintáctico por descenso recursivo es bastante sencillo por lo que 
-es fácil de entender el como funciona y para ejemplos como el trabajado en esta 
-practica es útil debido a que la gramática es bastante simple, esto se ve 
+es fácil entender el como funciona es por esto que para ejemplos como el 
+trabajado en esta 
+practica es bastante útil debido a que la gramática también es simple, esto se 
+ve 
 reflejado en el hecho de que la parte más difícil de esta práctica fue definir 
 una correcta gramática que permitiera modelar el lenguaje que se trabajo y el 
 resto fue abstraer dicha gramática a nivel programación.
 \\\\
 Sin embargo, al trabajar con ejemplos más complejos este tipo de analizador 
 sintáctico no sera tan conveniente debido a las limitaciones que presenta para 
-su correcto funcionamiento.
+su correcto funcionamiento como lo es el hecho que una gramática que sea 
+recursiva por la izquierda puede provocar que se entre en un bucle infinito 
+debido a que si nos encontramos una producción que intente expandir un símbolo 
+no terminal \emph{A} al tener dicha recursión nos volveremos a encontrar con la 
+situación de expandir otra vez a \emph{A}.
 A pesar de esto el conocer como funciona permite entender el funcionamiento del 
 resto de analizadores sintácticos y el porque se su existencia.
-\bibliography{bibliografia} 
+\bibliography{reporte} 
 \bibliographystyle{ieeetr}
 
 \end{document}
