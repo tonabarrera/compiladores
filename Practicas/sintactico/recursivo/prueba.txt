@@ -1,12 +1,12 @@
 var hola;
-var temp;
+var temp
 
 asig(id, 5);
-sumar(id, id, 7);
+sumar(id, id 7);
 
-mayorque(id, id);
+mayorque(id, 8);
 
-if (mayorque(id, i))
+if (mayorque(id, i)
     restar(id, id, 7);
 while (menorque(id, 777))
     sumar(id, id, id);

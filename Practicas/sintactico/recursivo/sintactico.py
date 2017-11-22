@@ -1,9 +1,7 @@
 import sys
 
-# host to network short
 
-
-class SuperAnalizador:
+class Analizador:
     def __init__(self, token):
         self.token = token
         self.i = 0
