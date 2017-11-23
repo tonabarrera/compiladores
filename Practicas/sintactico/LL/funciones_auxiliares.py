@@ -1,74 +1,163 @@
 import pdb
+import re
 
 
 class Auxiliares:
     def __init__(self):
-        self.producciones = {
-            "E": ["TR"],
-            "R": ["+TR", "e"],
-            "T": ["FY"],
-            "Y": ["*FY", "e"],
-            "F": ["(E)", "i"],
+        # self.gramatica = {
+        #     "S": {
+        #         "producciones": ["abBCa"],
+        #         "primero": False,
+        #         "siguiente": False
+        #     },
+        #     "B": {
+        #         "producciones": ["bACA", "aC"],
+        #         "primero": False,
+        #         "siguiente": False
+        #     },
+        #     "C": {
+        #         "producciones": ["e", "bAbS"],
+        #         "primero": False,
+        #         "siguiente": False
+        #     },
+        #     "A": {
+        #         "producciones": ["a", "e"],
+        #         "primero": False,
+        #         "siguiente": False
+        #     },
+        # }
+        self.gramatica = {
+            "E": {
+                "producciones": ["TR"],
+                "primero": False,
+                "siguiente": False
+            },
+            "R": {
+                "producciones": ["+TR", "e"],
+                "primero": False,
+                "siguiente": False
+            },
+            "T": {
+                "producciones": ["FY"],
+                "primero": False,
+                "siguiente": False
+            },
+            "Y": {
+                "producciones": ["*FY", "e"],
+                "primero": False,
+                "siguiente": False
+            },
+            "F": {
+                "producciones": ["(E)", "i"],
+                "primero": False,
+                "siguiente": False
+            },
         }
         self.inicial = "E"
 
-    def es_epsilon(self, N):
-        return N == 'e'
+    def es_epsilon(self, A):
+        return A == 'e'
 
-    def es_terminal(self, N):
-        return N not in self.producciones
+    def es_terminal(self, A):
+        return A not in self.gramatica
 
-    def primero(self, N):
+    def es_inicial(self, S):
+        return self.inicial == S
+
+    def primero(self, A):
         conjunto = set()
-        for n in N:
-            conjunto_extra = self.p(n)
+        for a in A:
+            if a in self.gramatica:
+                self.gramatica.get(a)["primero"] = False
+            conjunto_extra = self.P(a)
             conjunto.update(conjunto_extra)
             if 'e' not in conjunto_extra:
                 if 'e' in conjunto:
                     conjunto.remove('e')
                 break
-
+        # pdb.set_trace()
         return conjunto
 
-    def p(self, N):
+    def P(self, A):
         conjunto = set()
-        if self.es_terminal(N) or self.es_epsilon(N):
-            conjunto.add(N)
+        if self.es_terminal(A) or self.es_epsilon(A):
+            conjunto.add(A)
         else:
-            producciones = self.producciones[N]
-            for n in producciones:
-                i = 0
-                while i < len(n):
-                    extra = self.primero(n[i])
-                    conjunto.update(extra)
-                    # pdb.set_trace()
+            if self.gramatica.get(A).get("primero"):
+                return conjunto
+            else:
+                self.gramatica.get(A)["primero"] = True
 
+            producciones = self.gramatica.get(A).get("producciones")
+            for produccion in producciones:
+                i = 0
+                while i < len(produccion):
+                    extra = self.P(produccion[i])
+                    conjunto.update(extra)
                     if 'e' in extra:
                         i += 1
                     else:
                         break
         return conjunto
 
-    def es_inicial(self, N):
-        return self.inicial == N
-
     def siguiente(self, N):
+        for clave, valor in self.gramatica.items():
+            valor["siguiente"] = False
+        return self.S(N)
+
+    def S(self, N):
         conjunto = set()
+        #
+        if not self.es_terminal(N) and self.gramatica.get(N).get("siguiente"):
+            return conjunto
+        else:
+            if not self.es_terminal(N):
+                self.gramatica.get(N)["siguiente"] = True
+
         if self.es_inicial(N):
             conjunto.add('$')
         # A -> xN
-        if self.final(N):
-            no_terminales = self.obtener_izquierda(N)
+        no_terminales = self.obtener_izquierda(N)
+        #pdb.set_trace()
+        if len(no_terminales) != 0:
             for n in no_terminales:
-                conjunto.update(self.siguiente(n))
-        if self.medio(N):
-            simbolos = self.obtener_derecha(N)
-            for n in simbolos:
-                primero = self.primero(n)
+                conjunto.update(self.S(n))
+        # A -> xNy
+        no_terminales = self.obtener_derecha(N)
+        if len(no_terminales) != 0:
+            for simbolo in no_terminales:
+                primero = self.primero(simbolo.get("cadena"))
+                # pdb.set_trace()
                 if 'e' in primero:
-                    no_terminales = self.obtener_producciones(N)
-                    for i in no_terminales:
-                        conjunto.add(self.siguiente(i))
-                else:
-                    conjunto.add(primero)
+                    primero.remove('e')
+                    # simbolos = self.obtener_producciones(simbolo.get("clave"))
+                    conjunto.update(self.S(simbolo.get("clave")))
+                conjunto.update(primero)
+        if not self.es_terminal(N):
+            self.gramatica.get(N)["siguiente"] = False
         return conjunto
+
+    def obtener_izquierda(self, N):
+        claves = list()
+        for clave, valor in self.gramatica.items():
+            for v in valor.get("producciones"):
+                if N == v[len(v)-1]:
+                    claves.append(clave)
+        return claves
+
+    def obtener_derecha(self, N):
+        simbolos = list()
+        for clave, valor in self.gramatica.items():
+            for v in valor.get("producciones"):
+                for m in re.finditer(N, v):
+                    if m.start() != len(v)-1:
+                        simbolos.append({"clave": clave, "cadena": v[m.start()+1:]})
+        return simbolos
+
+    def obtener_producciones(self, N):
+        claves = list()
+        for clave, valor in self.gramatica.items():
+            for v in valor.get("producciones"):
+                if v.find(N) != -1:
+                    claves.append(clave)
+        return claves
