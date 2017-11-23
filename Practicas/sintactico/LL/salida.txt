@@ -1,0 +1,5 @@
+Mostrando tabla:
+[{1}, None, None]
+[{6, 7}, {7}, None]
+[{3}, {2}, None]
+[{4}, {4, 5}, None]

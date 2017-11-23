@@ -4,56 +4,56 @@ import re
 
 class Auxiliares:
     def __init__(self):
-        # self.gramatica = {
-        #     "S": {
-        #         "producciones": ["abBCa"],
-        #         "primero": False,
-        #         "siguiente": False
-        #     },
-        #     "B": {
-        #         "producciones": ["bACA", "aC"],
-        #         "primero": False,
-        #         "siguiente": False
-        #     },
-        #     "C": {
-        #         "producciones": ["e", "bAbS"],
-        #         "primero": False,
-        #         "siguiente": False
-        #     },
-        #     "A": {
-        #         "producciones": ["a", "e"],
-        #         "primero": False,
-        #         "siguiente": False
-        #     },
-        # }
         self.gramatica = {
-            "E": {
-                "producciones": ["TR"],
+            "S": {
+                "producciones": ["abBCa"],
                 "primero": False,
                 "siguiente": False
             },
-            "R": {
-                "producciones": ["+TR", "e"],
+            "B": {
+                "producciones": ["bACA", "aC"],
                 "primero": False,
                 "siguiente": False
             },
-            "T": {
-                "producciones": ["FY"],
+            "C": {
+                "producciones": ["e", "bAbS"],
                 "primero": False,
                 "siguiente": False
             },
-            "Y": {
-                "producciones": ["*FY", "e"],
-                "primero": False,
-                "siguiente": False
-            },
-            "F": {
-                "producciones": ["(E)", "i"],
+            "A": {
+                "producciones": ["a", "e"],
                 "primero": False,
                 "siguiente": False
             },
         }
-        self.inicial = "E"
+        # self.gramatica = {
+        #     "E": {
+        #         "producciones": ["TR"],
+        #         "primero": False,
+        #         "siguiente": False
+        #     },
+        #     "R": {
+        #         "producciones": ["+TR", "e"],
+        #         "primero": False,
+        #         "siguiente": False
+        #     },
+        #     "T": {
+        #         "producciones": ["FY"],
+        #         "primero": False,
+        #         "siguiente": False
+        #     },
+        #     "Y": {
+        #         "producciones": ["*FY", "e"],
+        #         "primero": False,
+        #         "siguiente": False
+        #     },
+        #     "F": {
+        #         "producciones": ["(E)", "i"],
+        #         "primero": False,
+        #         "siguiente": False
+        #     },
+        # }
+        self.inicial = "S"
 
     def es_epsilon(self, A):
         return A == 'e'
