@@ -1,59 +1,11 @@
 import pdb
 import re
+from gramatica import Gramatica
 
 
-class Auxiliares:
-    def __init__(self):
-        self.gramatica = {
-            "S": {
-                "producciones": ["abBCa"],
-                "primero": False,
-                "siguiente": False
-            },
-            "B": {
-                "producciones": ["bACA", "aC"],
-                "primero": False,
-                "siguiente": False
-            },
-            "C": {
-                "producciones": ["e", "bAbS"],
-                "primero": False,
-                "siguiente": False
-            },
-            "A": {
-                "producciones": ["a", "e"],
-                "primero": False,
-                "siguiente": False
-            },
-        }
-        # self.gramatica = {
-        #     "E": {
-        #         "producciones": ["TR"],
-        #         "primero": False,
-        #         "siguiente": False
-        #     },
-        #     "R": {
-        #         "producciones": ["+TR", "e"],
-        #         "primero": False,
-        #         "siguiente": False
-        #     },
-        #     "T": {
-        #         "producciones": ["FY"],
-        #         "primero": False,
-        #         "siguiente": False
-        #     },
-        #     "Y": {
-        #         "producciones": ["*FY", "e"],
-        #         "primero": False,
-        #         "siguiente": False
-        #     },
-        #     "F": {
-        #         "producciones": ["(E)", "i"],
-        #         "primero": False,
-        #         "siguiente": False
-        #     },
-        # }
-        self.inicial = "S"
+class Auxiliares(Gramatica):
+    def __init__(self, archivo):
+        super(Auxiliares, self).__init__(archivo)
 
     def es_epsilon(self, A):
         return A == 'e'
@@ -75,7 +27,6 @@ class Auxiliares:
                 if 'e' in conjunto:
                     conjunto.remove('e')
                 break
-        # pdb.set_trace()
         return conjunto
 
     def P(self, A):
@@ -107,7 +58,6 @@ class Auxiliares:
 
     def S(self, N):
         conjunto = set()
-        #
         if not self.es_terminal(N) and self.gramatica.get(N).get("siguiente"):
             return conjunto
         else:
@@ -118,7 +68,6 @@ class Auxiliares:
             conjunto.add('$')
         # A -> xN
         no_terminales = self.obtener_izquierda(N)
-        #pdb.set_trace()
         if len(no_terminales) != 0:
             for n in no_terminales:
                 conjunto.update(self.S(n))
@@ -127,10 +76,8 @@ class Auxiliares:
         if len(no_terminales) != 0:
             for simbolo in no_terminales:
                 primero = self.primero(simbolo.get("cadena"))
-                # pdb.set_trace()
                 if 'e' in primero:
                     primero.remove('e')
-                    # simbolos = self.obtener_producciones(simbolo.get("clave"))
                     conjunto.update(self.S(simbolo.get("clave")))
                 conjunto.update(primero)
         if not self.es_terminal(N):
