@@ -30,8 +30,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#ifndef YY_YY_ALGO_TAB_H_INCLUDED
-# define YY_YY_ALGO_TAB_H_INCLUDED
+#ifndef YY_YY_HOC_TAB_H_INCLUDED
+# define YY_YY_HOC_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -48,7 +48,17 @@ extern int yydebug;
     NUM = 258,
     VAR = 259,
     FNCT = 260,
-    NEG = 261
+    FUNCTION = 261,
+    OR = 262,
+    AND = 263,
+    GT = 264,
+    GE = 265,
+    LT = 266,
+    LE = 267,
+    EQ = 268,
+    NE = 269,
+    NEG = 270,
+    NOT = 271
   };
 #endif
 
@@ -64,9 +74,17 @@ union YYSTYPE
   double VAR;
   /* FNCT  */
   double FNCT;
-  /* exp  */
-  double exp;
-#line 70 "algo.tab.h" /* yacc.c:1909  */
+  /* FUNCTION  */
+  double FUNCTION;
+  /* stmt  */
+  double stmt;
+  /* stmtlist  */
+  double stmtlist;
+  /* expr  */
+  double expr;
+  /* asig  */
+  double asig;
+#line 88 "hoc.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -79,4 +97,4 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_ALGO_TAB_H_INCLUDED  */
+#endif /* !YY_YY_HOC_TAB_H_INCLUDED  */

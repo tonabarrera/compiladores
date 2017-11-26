@@ -1,5 +1,5 @@
 %{
-	#include"algo.tab.h"
+	#include"hoc.tab.h"
 	#include <stdlib.h>
 %}
 

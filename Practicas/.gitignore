@@ -8,7 +8,7 @@
 out
 gen### Python template
 # Byte-compiled / optimized / DLL files
-__pycache__/
+*/__pycache__/
 *.py[cod]
 *$py.class
 
@@ -17,7 +17,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-env/
+*/env/
 build/
 develop-eggs/
 dist/
@@ -101,3 +101,5 @@ ENV/
 
 # Rope project settings
 .ropeproject
+*.o
+*.out
