@@ -47,18 +47,23 @@ extern int yydebug;
   {
     NUM = 258,
     VAR = 259,
-    FNCT = 260,
+    FUNC = 260,
     FUNCTION = 261,
-    OR = 262,
-    AND = 263,
-    GT = 264,
-    GE = 265,
-    LT = 266,
-    LE = 267,
-    EQ = 268,
-    NE = 269,
-    NEG = 270,
-    NOT = 271
+    ELSE = 262,
+    WHILE = 263,
+    IF = 264,
+    RETURN = 265,
+    PROC = 266,
+    OR = 267,
+    AND = 268,
+    GT = 269,
+    GE = 270,
+    LT = 271,
+    LE = 272,
+    EQ = 273,
+    NE = 274,
+    NEG = 275,
+    NOT = 276
   };
 #endif
 
@@ -72,19 +77,21 @@ union YYSTYPE
   double NUM;
   /* VAR  */
   double VAR;
-  /* FNCT  */
-  double FNCT;
+  /* FUNC  */
+  double FUNC;
   /* FUNCTION  */
   double FUNCTION;
-  /* stmt  */
-  double stmt;
-  /* stmtlist  */
-  double stmtlist;
-  /* expr  */
-  double expr;
-  /* asig  */
-  double asig;
-#line 88 "hoc.tab.h" /* yacc.c:1909  */
+  /* ELSE  */
+  double ELSE;
+  /* WHILE  */
+  double WHILE;
+  /* IF  */
+  double IF;
+  /* RETURN  */
+  double RETURN;
+  /* PROC  */
+  double PROC;
+#line 95 "hoc.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

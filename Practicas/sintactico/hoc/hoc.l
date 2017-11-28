@@ -1,12 +1,14 @@
 %{
-	#include"hoc.tab.h"
-	#include <stdlib.h>
+    #include"hoc.tab.h"
+    #include <stdlib.h>
 %}
 
 %%
 
-"log" {return FNCT;}
+"func" {return FUNC;}
+"proc" {return PROC;}
 [a-z]+ {return VAR;}
+
 [0-9]+ {yylval.NUM = (double) atoi(yytext); return NUM;}
 '-' {return NEG;}
 [ \t]+ 

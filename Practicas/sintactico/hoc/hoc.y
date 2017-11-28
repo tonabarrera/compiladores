@@ -7,9 +7,7 @@
 
 %define api.value.type union /* Generate YYSTYPE from these types:  */
 %token <double>  NUM         /* Simple double precision number.  */
-%token <double> VAR FNCT FUNCTION    /* Symbol table pointer: variable and function.  */
-%type  <double>  expr
-%type  <double>  asig stmt stmtlist
+%token <double> VAR FUNC FUNCTION ELSE WHILE IF RETURN PROC  /* Symbol table pointer: variable and function.  */
 
 %right '='
 %left OR
@@ -21,18 +19,22 @@
 %right '^'      /* exponentiation */
 
 %% /* The grammar follows.  */
-lista:
-  %empty
-  | lista '\n'
-  | lista defunc '\n'
-  | lista asig '\n'
-  | lista stmt
-  | lista expr '\n'     { printf ("%.10g\n", $2); }
-  | lista error '\n'    { yyerrok; }
-  ;
+lista: %empty
+     | lista '\n'
+     | lista defunc '\n'    { printf("lista-defunc\n"); }
+     | lista asig '\n'
+     | lista stmt           { printf("lista-stmt\n"); }
+     | lista expr '\n'      { printf("lista-expr\n"); }
+     | lista error '\n'     { yyerrok; }
+     ;
 
-stmt: expr
-    | '{' stmtlist '}' { $$ = $2; }
+stmt: expr                                  { printf("stmt-expr\n"); }
+    | RETURN
+    | RETURN expr
+    | while condicion stmt end               { printf("Vi un while\n"); }
+    | if condicion stmt end                 { printf("Vi un if\n"); }
+    | if condicion stmt end ELSE stmt end   { printf("Vi un else\n"); }
+    | '{' stmtlist '}'
     ;
 
 stmtlist: %empty
@@ -40,38 +42,56 @@ stmtlist: %empty
         | stmtlist stmt
           ;
 
-expr:
-  NUM                       { $$ = $1; printf("Vi un numero\n"); }
-  | VAR                     { $$ = $1; printf("Vi una variable\n"); }
-  | asig
-  | FNCT '(' expr ')'       { $$ = $3; printf("Vi una funcion\n"); }
-  | expr '+' expr           { $$ = $1 + $3; }
-  | expr '-' expr           { $$ = $1 - $3; }
-  | expr '*' expr           { $$ = $1 * $3; }
-  | expr '/' expr           { $$ = $1 / $3; }
-  | expr '^' expr           { $$ = pow ($1, $3); }
-  | '-' expr  %prec NEG     { $$ = -$2; }
-  | expr GT expr            { $$ = $1 > $3; }
-  | expr GE expr            { $$ = $1 >= $3; }
-  | expr LT expr            { $$ = $1 < $3; }
-  | expr LE expr            { $$ = $1 <= $3; }
-  | expr EQ expr            { $$ = $1 == $3; }
-  | expr NE expr            { $$ = $1 != $3; }
-  | expr AND expr           { $$ = $1 && $3; }
-  | expr OR expr            { $$ = $1 || $3; }
-  | NOT expr                { $$ = !$2; }
-  ;
+expr: NUM                           { printf("Vi un numero\n"); }
+    | VAR                           { printf("Vi una variable\n"); }
+    | asig
+    | FUNCTION '(' arglist ')'      { printf("Vi una funcion\n"); }
+    | '(' expr ')'                  { printf("parentesis expr\n"); }
+    | expr '+' expr                 { printf("Vi una suma\n"); }
+    | expr '-' expr                 { printf("Vi un menos\n"); }
+    | expr '*' expr                 { printf("Vi una multiplicacion\n"); }
+    | expr '/' expr                 { printf("Vi una division\n"); }
+    | expr '^' expr                 { printf("Vi una potencia\n"); }
+    | '-' expr  %prec NEG           { printf("Vi un menos\n"); }
+    | expr GT expr                  { printf("Vi un GT\n"); }
+    | expr GE expr                  { printf("Vi un GE\n"); }
+    | expr LT expr                  { printf("Vi un LT\n"); }
+    | expr LE expr                  { printf("Vi un LE\n"); }
+    | expr EQ expr                  { printf("Vi un EQ\n"); }
+    | expr NE expr                  { printf("Vi un NE\n"); }
+    | expr AND expr                 { printf("Vi una AND\n"); }
+    | expr OR expr                  { printf("Vi una OR\n"); }
+    | NOT expr                      { printf("Vi una NOT\n"); }
+    ;
 
-asig:
-  VAR '=' expr      { $$ = $3; printf("Vi una asignacion\n"); }
-  ;
+arglist: %empty
+       | expr
+       | arglist ',' expr
 
 
-defunc: FUNCTION procnombre { printf("FUNCT"); }
-        '('' '')' stmt { printf("stmt"); }
+asig: VAR '=' expr      { printf("Vi una asignacion\n"); }
+      ;
+
+condicion: '(' expr ')' { printf("Vi una condicion\n"); }
+           ;
+
+while: WHILE
+       ;
+
+if: IF
+    ;
+
+end: %empty
+     ;
+
+defunc: FUNC procnombre     { printf("Vi un FUNC\n"); }
+        '(' ')' stmt        { printf("stmt\n"); }
+      | PROC procnombre     { printf("Vi un FUNC\n"); }
+        '(' ')' stmt        { printf("stmt\n"); }
         ;
 
-procnombre: VAR
+procnombre: VAR         { printf("VAR\n"); }
+          | FUNCTION    { printf("FUNCTION\n"); }
             ;
 
 /* End of grammar.  */
