@@ -9,7 +9,7 @@ lex.yy.c:
 hoc.tab.o: hoc.tab.c
 	gcc -c -Wall hoc.tab.c -o hoc.tab.o
 hoc.tab.c:
-	bison -d hoc.y
+	bison -d -Wconflicts-sr hoc.y
 lex:
 	flex hoc.l
 clean:
