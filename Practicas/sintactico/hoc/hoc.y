@@ -1,8 +1,10 @@
 %{
        #include <stdio.h>  /* For printf, etc. */
-       #include <math.h>   /* For pow, used in the grammar.  */
-       int yylex (void);
-       void yyerror (char const *);
+    #include <stdlib.h>
+    #include <math.h>   /* For pow, used in the grammar.  */
+    int yylex (void);
+    void yyerror (char const *);
+    extern FILE *yyin;
 %}
 
 %define api.value.type union /* Generate YYSTYPE from these types:  */
@@ -47,7 +49,6 @@ stmtlist: %empty
 expr: NUM                                   { printf("Vi un numero\n"); }
     | VAR                                   { printf("Vi una variable\n"); }
     | asig
-    | FUNCTION begin '(' arglist ')'        { printf("Vi una funcion\n"); }
     | READ '(' VAR ')'
     | BLTIN '(' expr ')'
     | '(' expr ')'                          { printf("parentesis expr\n"); }
@@ -66,6 +67,7 @@ expr: NUM                                   { printf("Vi un numero\n"); }
     | expr AND expr                         { printf("Vi una AND\n"); }
     | expr OR expr                          { printf("Vi una OR\n"); }
     | NOT expr                              { printf("Vi una NOT\n"); }
+    | VAR '(' arglist ')'        { printf("Vi una funcion\n"); }
     ;
 
 prlist: expr
@@ -117,8 +119,18 @@ procnombre: VAR             { printf("VAR\n"); }
        fprintf (stderr, "%s\n", s);
      }
 
-     int
-     main (int argc, char const* argv[])
-     {
-       return yyparse ();
-     }
+int main (int argc, char const* argv[]) {
+    if (argc < 2) {
+        printf("Faltan parametros ./analizador <archivo>");
+    }
+    FILE *archivo = fopen(argv[1], "r");
+    if (!archivo) {
+        printf("No se inserto el archivo\n");
+        return -1;
+    }
+    yyin = archivo;
+    do {
+        yyparse();
+    } while(!feof(yyin));
+    return 0;
+}

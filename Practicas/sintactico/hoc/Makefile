@@ -13,4 +13,4 @@ hoc.tab.c:
 lex:
 	flex hoc.l
 clean:
-	rm -f ./analizador.out ./hoc.tab.* ./lex.yy.c
+	rm -f *.o ./analizador.out ./hoc.tab.* ./lex.yy.c
