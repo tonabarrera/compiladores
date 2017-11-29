@@ -48,27 +48,28 @@ extern int yydebug;
     NUM = 258,
     PRINT = 259,
     STRING = 260,
-    READ = 261,
-    BLTIN = 262,
-    PROCEDURE = 263,
-    PROC = 264,
-    VAR = 265,
-    FUNC = 266,
-    FUNCTION = 267,
-    ELSE = 268,
-    WHILE = 269,
-    IF = 270,
-    RETURN = 271,
-    OR = 272,
-    AND = 273,
-    GT = 274,
-    GE = 275,
-    LT = 276,
-    LE = 277,
-    EQ = 278,
-    NE = 279,
-    NEG = 280,
-    NOT = 281
+    PI = 261,
+    READ = 262,
+    BLTIN = 263,
+    PROCEDURE = 264,
+    PROC = 265,
+    VAR = 266,
+    FUNC = 267,
+    FUNCTION = 268,
+    ELSE = 269,
+    WHILE = 270,
+    IF = 271,
+    RETURN = 272,
+    OR = 273,
+    AND = 274,
+    GT = 275,
+    GE = 276,
+    LT = 277,
+    LE = 278,
+    EQ = 279,
+    NE = 280,
+    NEG = 281,
+    NOT = 282
   };
 #endif
 
@@ -84,6 +85,8 @@ union YYSTYPE
   double PRINT;
   /* STRING  */
   double STRING;
+  /* PI  */
+  double PI;
   /* READ  */
   double READ;
   /* BLTIN  */
@@ -106,7 +109,7 @@ union YYSTYPE
   double IF;
   /* RETURN  */
   double RETURN;
-#line 110 "hoc.tab.h" /* yacc.c:1909  */
+#line 113 "hoc.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

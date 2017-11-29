@@ -8,7 +8,7 @@
 %}
 
 %define api.value.type union /* Generate YYSTYPE from these types:  */
-%token <double>  NUM PRINT STRING       /* Simple double precision number.  */
+%token <double>  NUM PRINT STRING PI       /* Simple double precision number.  */
 %token <double> READ BLTIN PROCEDURE PROC VAR FUNC FUNCTION ELSE WHILE IF RETURN  /* Symbol table pointer: variable and function.  */
 
 %right '='
@@ -33,8 +33,8 @@ lista: %empty
 stmt: expr                                  { printf("stmt-expr\n"); }
     | RETURN
     | RETURN expr
-    | PROCEDURE begin '(' arglist ')'
-    | PRINT prlist                          { printf("print"); }
+    | PROCEDURE '(' arglist ')'
+    | PRINT prlist                          { printf("print\n"); }
     | while condicion stmt end              { printf("Vi un while\n"); }
     | if condicion stmt end                 { printf("Vi un if\n"); }
     | if condicion stmt end ELSE stmt end   { printf("Vi un else\n"); }
@@ -48,6 +48,7 @@ stmtlist: %empty
 
 expr: NUM                                   { printf("Vi un numero\n"); }
     | VAR                                   { printf("Vi una variable\n"); }
+    | PI
     | asig
     | READ '(' VAR ')'
     | BLTIN '(' expr ')'
@@ -67,7 +68,8 @@ expr: NUM                                   { printf("Vi un numero\n"); }
     | expr AND expr                         { printf("Vi una AND\n"); }
     | expr OR expr                          { printf("Vi una OR\n"); }
     | NOT expr                              { printf("Vi una NOT\n"); }
-    | VAR '(' arglist ')'        { printf("Vi una funcion\n"); }
+    | VAR '(' arglist ')'                   { printf("Vi una funcion\n"); }
+    | FUNCTION '(' arglist ')'              { printf("Vi una funcion\n"); }
     ;
 
 prlist: expr
@@ -96,9 +98,6 @@ if: IF
 
 end: %empty
    ;
-
-begin: %empty
-     ;
 
 defunc: FUNC procnombre     { printf("Vi un FUNC\n"); }
         '(' ')' stmt        { printf("stmt\n"); }
