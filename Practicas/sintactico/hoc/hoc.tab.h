@@ -109,7 +109,11 @@ union YYSTYPE
   double IF;
   /* RETURN  */
   double RETURN;
-#line 113 "hoc.tab.h" /* yacc.c:1909  */
+  /* expr  */
+  double expr;
+  /* asig  */
+  double asig;
+#line 117 "hoc.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

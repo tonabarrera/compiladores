@@ -25,7 +25,6 @@ class TablaLL(Auxiliares):
                 produccion_num += 1
 
     def agregar_elemento(self, A, a, num):
-        pdb.set_trace()
         if self.tabla[self.no_terminales.get(A)][self.terminales.get(a)] is None:
             self.tabla[self.no_terminales.get(A)][self.terminales.get(a)] = set()
         self.tabla[self.no_terminales.get(A)][self.terminales.get(a)].add(num)

@@ -8,8 +8,9 @@
 %}
 
 %define api.value.type union /* Generate YYSTYPE from these types:  */
-%token <double>  NUM PRINT STRING PI       /* Simple double precision number.  */
+%token <double>  NUM PRINT STRING PI      /* Simple double precision number.  */
 %token <double> READ BLTIN PROCEDURE PROC VAR FUNC FUNCTION ELSE WHILE IF RETURN  /* Symbol table pointer: variable and function.  */
+%type <double> expr asig
 
 %right '='
 %left OR
@@ -26,7 +27,7 @@ lista: %empty
      | lista defunc '\n'        { printf("lista-defunc\n"); }
      | lista asig '\n'
      | lista stmt '\n'          { printf("lista-stmt\n"); }
-     | lista expr '\n'          { printf("lista-expr\n"); }
+     | lista expr '\n'          { printf("lista-expr %f\n", $2); }
      | lista error '\n'         { yyerrok; }
      ;
 
@@ -53,7 +54,12 @@ expr: NUM                                   { printf("Vi un numero\n"); }
     | READ '(' VAR ')'
     | BLTIN '(' expr ')'
     | '(' expr ')'                          { printf("parentesis expr\n"); }
-    | expr '+' expr                         { printf("Vi una suma\n"); }
+    | expr '+' expr                         { 
+                                                printf("MOV %f A\n", $1);
+                                                printf("MOV %f A\n", $3);
+                                                printf("ADD A B\n");
+                                                $$ = $1 + $3;
+                                            }
     | expr '-' expr                         { printf("Vi un menos\n"); }
     | expr '*' expr                         { printf("Vi una multiplicacion\n"); }
     | expr '/' expr                         { printf("Vi una division\n"); }

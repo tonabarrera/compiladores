@@ -170,7 +170,11 @@ union YYSTYPE
   double IF;
   /* RETURN  */
   double RETURN;
-#line 174 "hoc.tab.c" /* yacc.c:355  */
+  /* expr  */
+  double expr;
+  /* asig  */
+  double asig;
+#line 178 "hoc.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -187,7 +191,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 191 "hoc.tab.c" /* yacc.c:358  */
+#line 195 "hoc.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -487,13 +491,13 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    24,    24,    25,    26,    27,    28,    29,    30,    33,
-      34,    35,    36,    37,    38,    39,    40,    41,    44,    45,
-      46,    49,    50,    51,    52,    53,    54,    55,    56,    57,
-      58,    59,    60,    61,    62,    63,    64,    65,    66,    67,
-      68,    69,    70,    71,    72,    75,    76,    77,    78,    81,
-      82,    83,    87,    90,    93,    96,    99,   102,   102,   104,
-     104,   108
+       0,    25,    25,    26,    27,    28,    29,    30,    31,    34,
+      35,    36,    37,    38,    39,    40,    41,    42,    45,    46,
+      47,    50,    51,    52,    53,    54,    55,    56,    57,    62,
+      63,    64,    65,    66,    67,    68,    69,    70,    71,    72,
+      73,    74,    75,    76,    77,    80,    81,    82,    83,    86,
+      87,    88,    92,    95,    98,   101,   104,   107,   107,   109,
+     109,   113
 };
 #endif
 
@@ -1378,223 +1382,227 @@ yyreduce:
   switch (yyn)
     {
         case 4:
-#line 26 "hoc.y" /* yacc.c:1646  */
+#line 27 "hoc.y" /* yacc.c:1646  */
     { printf("lista-defunc\n"); }
-#line 1384 "hoc.tab.c" /* yacc.c:1646  */
+#line 1388 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 28 "hoc.y" /* yacc.c:1646  */
+#line 29 "hoc.y" /* yacc.c:1646  */
     { printf("lista-stmt\n"); }
-#line 1390 "hoc.tab.c" /* yacc.c:1646  */
+#line 1394 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 29 "hoc.y" /* yacc.c:1646  */
-    { printf("lista-expr\n"); }
-#line 1396 "hoc.tab.c" /* yacc.c:1646  */
+#line 30 "hoc.y" /* yacc.c:1646  */
+    { printf("lista-expr %f\n", (*(double*)(&yyvsp[-1]))); }
+#line 1400 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 30 "hoc.y" /* yacc.c:1646  */
+#line 31 "hoc.y" /* yacc.c:1646  */
     { yyerrok; }
-#line 1402 "hoc.tab.c" /* yacc.c:1646  */
+#line 1406 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 33 "hoc.y" /* yacc.c:1646  */
+#line 34 "hoc.y" /* yacc.c:1646  */
     { printf("stmt-expr\n"); }
-#line 1408 "hoc.tab.c" /* yacc.c:1646  */
+#line 1412 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 37 "hoc.y" /* yacc.c:1646  */
+#line 38 "hoc.y" /* yacc.c:1646  */
     { printf("print\n"); }
-#line 1414 "hoc.tab.c" /* yacc.c:1646  */
+#line 1418 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 38 "hoc.y" /* yacc.c:1646  */
+#line 39 "hoc.y" /* yacc.c:1646  */
     { printf("Vi un while\n"); }
-#line 1420 "hoc.tab.c" /* yacc.c:1646  */
+#line 1424 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 39 "hoc.y" /* yacc.c:1646  */
+#line 40 "hoc.y" /* yacc.c:1646  */
     { printf("Vi un if\n"); }
-#line 1426 "hoc.tab.c" /* yacc.c:1646  */
+#line 1430 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 40 "hoc.y" /* yacc.c:1646  */
+#line 41 "hoc.y" /* yacc.c:1646  */
     { printf("Vi un else\n"); }
-#line 1432 "hoc.tab.c" /* yacc.c:1646  */
+#line 1436 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 49 "hoc.y" /* yacc.c:1646  */
+#line 50 "hoc.y" /* yacc.c:1646  */
     { printf("Vi un numero\n"); }
-#line 1438 "hoc.tab.c" /* yacc.c:1646  */
+#line 1442 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 50 "hoc.y" /* yacc.c:1646  */
+#line 51 "hoc.y" /* yacc.c:1646  */
     { printf("Vi una variable\n"); }
-#line 1444 "hoc.tab.c" /* yacc.c:1646  */
+#line 1448 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 55 "hoc.y" /* yacc.c:1646  */
+#line 56 "hoc.y" /* yacc.c:1646  */
     { printf("parentesis expr\n"); }
-#line 1450 "hoc.tab.c" /* yacc.c:1646  */
+#line 1454 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 56 "hoc.y" /* yacc.c:1646  */
-    { printf("Vi una suma\n"); }
-#line 1456 "hoc.tab.c" /* yacc.c:1646  */
+#line 57 "hoc.y" /* yacc.c:1646  */
+    { 
+                                                printf("MOV %f A\n", (*(double*)(&yyvsp[-2])));
+                                                printf("MOV %f A\n", (*(double*)(&yyvsp[0])));
+                                                printf("ADD A B\n");
+                                                (*(double*)(&yyval)) = (*(double*)(&yyvsp[-2])) + (*(double*)(&yyvsp[0])); }
+#line 1464 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 57 "hoc.y" /* yacc.c:1646  */
+#line 62 "hoc.y" /* yacc.c:1646  */
     { printf("Vi un menos\n"); }
-#line 1462 "hoc.tab.c" /* yacc.c:1646  */
+#line 1470 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 58 "hoc.y" /* yacc.c:1646  */
+#line 63 "hoc.y" /* yacc.c:1646  */
     { printf("Vi una multiplicacion\n"); }
-#line 1468 "hoc.tab.c" /* yacc.c:1646  */
+#line 1476 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 59 "hoc.y" /* yacc.c:1646  */
+#line 64 "hoc.y" /* yacc.c:1646  */
     { printf("Vi una division\n"); }
-#line 1474 "hoc.tab.c" /* yacc.c:1646  */
+#line 1482 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 60 "hoc.y" /* yacc.c:1646  */
+#line 65 "hoc.y" /* yacc.c:1646  */
     { printf("Vi una potencia\n"); }
-#line 1480 "hoc.tab.c" /* yacc.c:1646  */
+#line 1488 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 61 "hoc.y" /* yacc.c:1646  */
+#line 66 "hoc.y" /* yacc.c:1646  */
     { printf("Vi un menos\n"); }
-#line 1486 "hoc.tab.c" /* yacc.c:1646  */
+#line 1494 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 62 "hoc.y" /* yacc.c:1646  */
+#line 67 "hoc.y" /* yacc.c:1646  */
     { printf("Vi un GT\n"); }
-#line 1492 "hoc.tab.c" /* yacc.c:1646  */
+#line 1500 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 63 "hoc.y" /* yacc.c:1646  */
+#line 68 "hoc.y" /* yacc.c:1646  */
     { printf("Vi un GE\n"); }
-#line 1498 "hoc.tab.c" /* yacc.c:1646  */
+#line 1506 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 64 "hoc.y" /* yacc.c:1646  */
+#line 69 "hoc.y" /* yacc.c:1646  */
     { printf("Vi un LT\n"); }
-#line 1504 "hoc.tab.c" /* yacc.c:1646  */
+#line 1512 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 65 "hoc.y" /* yacc.c:1646  */
+#line 70 "hoc.y" /* yacc.c:1646  */
     { printf("Vi un LE\n"); }
-#line 1510 "hoc.tab.c" /* yacc.c:1646  */
+#line 1518 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 66 "hoc.y" /* yacc.c:1646  */
+#line 71 "hoc.y" /* yacc.c:1646  */
     { printf("Vi un EQ\n"); }
-#line 1516 "hoc.tab.c" /* yacc.c:1646  */
+#line 1524 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 67 "hoc.y" /* yacc.c:1646  */
+#line 72 "hoc.y" /* yacc.c:1646  */
     { printf("Vi un NE\n"); }
-#line 1522 "hoc.tab.c" /* yacc.c:1646  */
+#line 1530 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 68 "hoc.y" /* yacc.c:1646  */
+#line 73 "hoc.y" /* yacc.c:1646  */
     { printf("Vi una AND\n"); }
-#line 1528 "hoc.tab.c" /* yacc.c:1646  */
+#line 1536 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 69 "hoc.y" /* yacc.c:1646  */
+#line 74 "hoc.y" /* yacc.c:1646  */
     { printf("Vi una OR\n"); }
-#line 1534 "hoc.tab.c" /* yacc.c:1646  */
+#line 1542 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 70 "hoc.y" /* yacc.c:1646  */
+#line 75 "hoc.y" /* yacc.c:1646  */
     { printf("Vi una NOT\n"); }
-#line 1540 "hoc.tab.c" /* yacc.c:1646  */
+#line 1548 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 71 "hoc.y" /* yacc.c:1646  */
+#line 76 "hoc.y" /* yacc.c:1646  */
     { printf("Vi una funcion\n"); }
-#line 1546 "hoc.tab.c" /* yacc.c:1646  */
+#line 1554 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 72 "hoc.y" /* yacc.c:1646  */
+#line 77 "hoc.y" /* yacc.c:1646  */
     { printf("Vi una funcion\n"); }
-#line 1552 "hoc.tab.c" /* yacc.c:1646  */
+#line 1560 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 87 "hoc.y" /* yacc.c:1646  */
+#line 92 "hoc.y" /* yacc.c:1646  */
     { printf("Vi una asignacion\n"); }
-#line 1558 "hoc.tab.c" /* yacc.c:1646  */
+#line 1566 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 90 "hoc.y" /* yacc.c:1646  */
+#line 95 "hoc.y" /* yacc.c:1646  */
     { printf("Vi una condicion\n"); }
-#line 1564 "hoc.tab.c" /* yacc.c:1646  */
+#line 1572 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 102 "hoc.y" /* yacc.c:1646  */
+#line 107 "hoc.y" /* yacc.c:1646  */
     { printf("Vi un FUNC\n"); }
-#line 1570 "hoc.tab.c" /* yacc.c:1646  */
+#line 1578 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 103 "hoc.y" /* yacc.c:1646  */
+#line 108 "hoc.y" /* yacc.c:1646  */
     { printf("stmt\n"); }
-#line 1576 "hoc.tab.c" /* yacc.c:1646  */
+#line 1584 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 104 "hoc.y" /* yacc.c:1646  */
+#line 109 "hoc.y" /* yacc.c:1646  */
     { printf("Vi un FUNC\n"); }
-#line 1582 "hoc.tab.c" /* yacc.c:1646  */
+#line 1590 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 105 "hoc.y" /* yacc.c:1646  */
+#line 110 "hoc.y" /* yacc.c:1646  */
     { printf("stmt\n"); }
-#line 1588 "hoc.tab.c" /* yacc.c:1646  */
+#line 1596 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 108 "hoc.y" /* yacc.c:1646  */
+#line 113 "hoc.y" /* yacc.c:1646  */
     { printf("VAR\n"); }
-#line 1594 "hoc.tab.c" /* yacc.c:1646  */
+#line 1602 "hoc.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1598 "hoc.tab.c" /* yacc.c:1646  */
+#line 1606 "hoc.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1822,7 +1830,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 112 "hoc.y" /* yacc.c:1906  */
+#line 117 "hoc.y" /* yacc.c:1906  */
 
 
 /* Called by yyparse on error.  */

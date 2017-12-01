@@ -11,22 +11,25 @@ class Gramatica:
         self.inicial = None
         self.gramatica = dict()
 
+    def __str__(self):
+        return "No terminales: " + str(self.no_terminales)
+
     def leer_archivo(self):
         archivo = open(self.nombre_archivo, 'r')
         primera = 0
-        j = 0
+        j = 1
         for linea in archivo:
             if primera == 0:
-                self.obtener_no_terminales(linea)
+                self.guardar_no_terminales(linea)
                 primera = 1
                 continue
             if primera == 1:
                 self.inicial = linea[0]
                 primera = 2
-            j = self.obtener_produccion(linea, j)
+            j = self.guardar_produccion(linea, j)
         self.terminales.update({"$": j})
 
-    def obtener_produccion(self, linea, j):
+    def guardar_produccion(self, linea, j):
         izq = linea[0]
         der = linea[3:]
         der = re.match("[^\n]*", der).group()
@@ -43,9 +46,11 @@ class Gramatica:
                 j += 1
         return j
 
-    def obtener_no_terminales(self, linea):
-        i = 0
+    def obtener_izq(self, N):
+        return self.gramatica.get(N).get("producciones")
+
+    def guardar_no_terminales(self, linea):
+        i = 1
         for c in linea:
             if re.match("[A-Z]", c) is not None and c not in self.no_terminales:
                 self.no_terminales.update({c: i})
-                i += 1
