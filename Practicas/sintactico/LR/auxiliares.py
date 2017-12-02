@@ -3,6 +3,13 @@ import re
 from gramatica import Gramatica
 
 
+class Tipo:
+    #             LR(0)
+    TIPO_A = 0  # A->X.aY
+    TIPO_B = 1  # A->X.
+    TIPO_C = 3  # S'->S. aun no lo uso
+
+
 class Auxiliares(Gramatica):
     def __init__(self, archivo):
         super(Auxiliares, self).__init__(archivo)
@@ -10,8 +17,9 @@ class Auxiliares(Gramatica):
     def es_epsilon(self, A):
         return A == 'e'
 
+    # Tal vez de error
     def es_terminal(self, A):
-        return A not in self.gramatica
+        return A in self.terminales
 
     def es_inicial(self, S):
         return self.inicial == S

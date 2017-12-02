@@ -1,12 +1,6 @@
 import pdb
 from gramatica import Gramatica
-from auxiliares import Auxiliares
-
-
-class Tipo:
-    TIPO_A = 0  # A->X.aY
-    TIPO_B = 1  # A->X.
-    TIPO_C = 3  # S'->S.
+from auxiliares import Auxiliares, Tipo
 
 
 class Elemento(Tipo):
@@ -60,9 +54,6 @@ class LR_CERO(Auxiliares, Tipo):
         self.num_columnas = 0
         self.num_filas = 0
         self.tabla = None
-
-    def es_terminal(self, A):
-        return A in self.terminales
 
     def cerradura(self, I):
         J = list(I)
@@ -178,13 +169,6 @@ class LR_CERO(Auxiliares, Tipo):
             for columna in fila:
                 print(columna, end="\t")
             print(edo)
-
-
-class LR_UNO(object):
-    """docstring for LR_UNO"""
-    def __init__(self, arg):
-        super(LR_UNO, self).__init__()
-        self.arg = arg
 
 
 class LALR(object):
