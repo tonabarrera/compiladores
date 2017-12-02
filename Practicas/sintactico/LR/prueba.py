@@ -1,6 +1,6 @@
-from analizadores import LR_CERO, Elemento, Estado
+from analizadores import LR_CERO
 import pdb
 
 lr = LR_CERO("gramatica.txt")
 lr.obtener_conjuntos()
-pdb.set_trace()
+lr.construir_tabla()

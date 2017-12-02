@@ -3,7 +3,6 @@ import pdb
 
 
 class Gramatica:
-    """docstring for Gramatica"""
     def __init__(self, archivo):
         self.nombre_archivo = archivo
         self.no_terminales = dict()
@@ -54,3 +53,4 @@ class Gramatica:
         for c in linea:
             if re.match("[A-Z]", c) is not None and c not in self.no_terminales:
                 self.no_terminales.update({c: i})
+                i += 1
