@@ -169,10 +169,3 @@ class LR_CERO(Auxiliares, Tipo):
             for columna in fila:
                 print(columna, end="\t")
             print(edo)
-
-
-class LALR(object):
-    """docstring for LALR"""
-    def __init__(self, arg):
-        super(LALR, self).__init__()
-        self.arg = arg
