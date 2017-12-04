@@ -1,10 +1,13 @@
-import pdb
-import re
 from gramatica import Gramatica
+import re
 
 
 class Auxiliares(Gramatica):
+    """Clase que contiene la implementacion de los
+    metodos primero y siguiente"""
     def __init__(self, archivo):
+        """Se envia el nombre del archivo
+        a la clase padre"""
         super(Auxiliares, self).__init__(archivo)
 
     def es_epsilon(self, A):
@@ -17,6 +20,7 @@ class Auxiliares(Gramatica):
         return self.inicial == S
 
     def primero(self, A):
+        """Metodo que calcula primero de una cadena"""
         conjunto = set()
         for a in A:
             if a in self.gramatica:
@@ -30,6 +34,7 @@ class Auxiliares(Gramatica):
         return conjunto
 
     def P(self, A):
+        """Metodo que calcula primero de un solo simbolo"""
         conjunto = set()
         if self.es_terminal(A) or self.es_epsilon(A):
             conjunto.add(A)
@@ -52,11 +57,15 @@ class Auxiliares(Gramatica):
         return conjunto
 
     def siguiente(self, N):
+        """Metodo para el calculo de siguiente
+        se inicializan los banderas que indican si ya
+        se calculo siguiente"""
         for clave, valor in self.gramatica.items():
             valor["siguiente"] = False
         return self.S(N)
 
     def S(self, N):
+        """Calculo de siguiente"""
         conjunto = set()
         if not self.es_terminal(N) and self.gramatica.get(N).get("siguiente"):
             return conjunto
@@ -85,6 +94,7 @@ class Auxiliares(Gramatica):
         return conjunto
 
     def obtener_izquierda(self, N):
+        """Obtiene la parte izquierda de una produccion"""
         claves = list()
         for clave, valor in self.gramatica.items():
             for v in valor.get("producciones"):
@@ -93,18 +103,14 @@ class Auxiliares(Gramatica):
         return claves
 
     def obtener_derecha(self, N):
+        """Obtiene la parte derecha de una produccion"""
         simbolos = list()
         for clave, valor in self.gramatica.items():
             for v in valor.get("producciones"):
                 for m in re.finditer(N, v):
                     if m.start() != len(v)-1:
-                        simbolos.append({"clave": clave, "cadena": v[m.start()+1:]})
+                        simbolos.append({
+                            "clave": clave,
+                            "cadena": v[m.start()+1:]
+                            })
         return simbolos
-
-    def obtener_producciones(self, N):
-        claves = list()
-        for clave, valor in self.gramatica.items():
-            for v in valor.get("producciones"):
-                if v.find(N) != -1:
-                    claves.append(clave)
-        return claves

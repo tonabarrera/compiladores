@@ -5,5 +5,5 @@ R->e
 T->FY
 Y->*FY
 Y->e
-F->pEq
+F->(E)
 F->i
