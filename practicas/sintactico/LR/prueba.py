@@ -1,6 +1,8 @@
-from lr_uno import LR_UNO
+from lalr import LALR
 import pdb
 
-lr = LR_UNO("gramatica_uno.txt")
-lr.obtener_conjuntos()
-lr.construir_tabla()
+analizador = LALR("gramatica_uno.txt")
+analizador.obtener_conjuntos()
+analizador.unir_conjuntos()
+pdb.set_trace()
+# analizador.construir_tabla()

@@ -61,6 +61,7 @@ class LR_UNO(Auxiliares, Tipo):
         conjunto_inicio = Conjunto(inicio)
         conjunto_inicio.conjunto = self.cerradura(inicio)
         conjunto_inicio.numero = 0
+        pdb.set_trace()
         indice = 1
         lista.append(conjunto_inicio)
         for con in lista:
