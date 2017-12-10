@@ -1,0 +1,8 @@
+S B C A
+S->abBCa
+B->bACA
+B->aC
+C->bAbS
+C->e
+A->a
+A->e

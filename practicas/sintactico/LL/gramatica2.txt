@@ -1,0 +1,6 @@
+S D E
+S->iEtSD
+S->a
+D->oS
+D->e
+E->b
