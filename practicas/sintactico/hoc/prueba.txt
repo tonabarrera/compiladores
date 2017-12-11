@@ -1,1 +1,5 @@
-5+5
+1+2*3
+angle=PI/3
+r=sin(angle)
+r
+r*2

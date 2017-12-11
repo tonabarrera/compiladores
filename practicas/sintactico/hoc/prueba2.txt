@@ -1,0 +1,17 @@
+func atan2(){
+    if($1>0){
+        return atan($2/$1)
+    } else if ($1<0){
+        return atan($2/$1)+PI
+    } else if ($2>0){
+        return PI/2
+    } else if ($2<0){
+        return -PI/2
+    } else {
+        print "atan2 domain error"
+        return 0
+    }
+}
+
+atan2(2,3)
+atan2(0,0)
