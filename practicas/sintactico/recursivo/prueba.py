@@ -13,6 +13,7 @@ class Prueba:
         # Parte del analizador lexico
         self.lexer.input(cadena)
         for token in self.lexer:
+            print(token)
             entrada += token.type
 
         print(entrada)
