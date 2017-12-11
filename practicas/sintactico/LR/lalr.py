@@ -17,6 +17,7 @@ class Conjunto(ConjuntoUno):
     def __init__(self, kernel):
         super(Conjunto, self).__init__(kernel)
         self.conjunto_cero = self.obtener_conjunto_cero()
+        self.numero_dos = None
 
     def obtener_conjunto_cero(self):
         representacion = set()
@@ -97,16 +98,38 @@ class LALR(LR_UNO):
     def unir_conjuntos(self):
         lista = list(self.conjuntos)
         i = 0
-        pdb.set_trace()
+        nuevos_conjuntos = set()
+        print('Lista ' + str(len(lista)))
         while (i < len(lista)):
             temp = lista[i]
             j = i + 1
+            agregar = False
+            kernel = set()
+            numero = ''
             while (j < len(lista)):
                 if temp.conjunto_cero == lista[j].conjunto_cero:
-                    print('UNION' + str(temp.conjunto_cero) + ' ' + str(lista[j].conjunto_cero))
+                    print('UNION' + str(temp.conjunto) + ' ' + str(lista[j].conjunto_cero))
+                    kernel = kernel.union(lista[j].kernel)
+                    numero = numero + str(lista[j].numero)
                     lista.pop(j)
+                    agregar = True
                 j += 1
-            i += 1
+            if agregar:
+                kernel = kernel.union(temp.kernel)
+                aux_conjunto = Conjunto(kernel)
+                aux_conjunto.conjunto = temp.conjunto
+                numero = str(temp.numero) + numero
+                aux_conjunto.numero_dos = int(numero)
+                aux_conjunto.numero = temp.numero
+                nuevos_conjuntos.add(aux_conjunto)
+                lista.pop(i)
+                print('-------------------')
+                i = 0
+            else:
+                i += 1
+        for ele in lista:
+            nuevos_conjuntos.add(ele)
+        self.conjuntos = nuevos_conjuntos
         pdb.set_trace()
 
     def ya_existe(self, lista, kernel):
