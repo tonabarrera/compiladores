@@ -31,7 +31,7 @@ class LR_UNO(Auxiliares, Tipo):
             agregado.update({str(i): True})
         J = list(I)
         for A in J:
-            if A.punto < len(A.der) and not self.es_terminal(A.der[A.punto]):
+            if A.punto < len(A.der) and self.es_no_terminal(A.der[A.punto]):
                 B = A.der[A.punto]
                 producciones = self.obtener_izq(B)
                 for pro in producciones:
@@ -44,7 +44,6 @@ class LR_UNO(Auxiliares, Tipo):
                             ele.set_tipo(self.terminales)
                             J.append(ele)
                             agregado.update({str(ele): True})
-
         return set(J)
 
     def mover(self, I, X):
@@ -106,7 +105,7 @@ class LR_UNO(Auxiliares, Tipo):
 
     def construir_tabla(self):
         print('PRODUCCIONES:')
-        contador_gramatica = 1
+        self.imprimir_gramatica()
         for I in self.conjuntos:
             for A, valor in self.no_terminales.items():
                 temp = self.mover(I.conjunto, A)
@@ -128,14 +127,7 @@ class LR_UNO(Auxiliares, Tipo):
                 if elemento.tipo == self.TIPO_B:
                     if elemento.izq != self.extendido:
                         llave = elemento.izq + '->' + elemento.der
-                        r = 0
-                        if llave in self.gramatica_id:
-                            r = self.gramatica_id.get(llave)
-                        else:
-                            self.gramatica_id.update({llave: contador_gramatica})
-                            r = contador_gramatica
-                            print(str(r) + ' ' + elemento.izq + '->' + elemento.der)
-                            contador_gramatica += 1
+                        r = self.gramatica_id.get(llave)
                         i = I.numero
                         j = len(self.no_terminales)+self.terminales.get(elemento.terminal)-1
                         self.agregar_elemento(i, j, "r" + str(r))

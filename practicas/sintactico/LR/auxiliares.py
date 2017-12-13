@@ -21,6 +21,9 @@ class Auxiliares(Gramatica):
     def es_terminal(self, A):
         return A in self.terminales
 
+    def es_no_terminal(self, A):
+        return A in self.no_terminales
+
     def es_inicial(self, S):
         return self.inicial == S
 

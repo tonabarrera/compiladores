@@ -32,6 +32,18 @@ class Gramatica:
             if caracter not in self.no_terminales:
                 self.extendido = caracter
                 break
+        self.crear_id_gramatica()
+
+    def crear_id_gramatica(self):
+        contador = 1
+        for clave, valor in self.gramatica.items():
+            for produccion in valor.get("producciones"):
+                self.gramatica_id.update({clave + '->' + produccion: contador})
+                contador += 1
+
+    def imprimir_gramatica(self):
+        for clave, valor in self.gramatica_id.items():
+            print(str(valor) + ' ' + clave)
 
     def guardar_produccion(self, linea, j):
         izq = linea[0]

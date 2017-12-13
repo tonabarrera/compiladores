@@ -36,7 +36,7 @@ class LALR(LR_UNO):
             agregado.update({str(i): True})
         J = list(I)
         for A in J:
-            if A.punto < len(A.der) and not self.es_terminal(A.der[A.punto]):
+            if A.punto < len(A.der) and self.es_no_terminal(A.der[A.punto]):
                 B = A.der[A.punto]
                 producciones = self.obtener_izq(B)
                 for pro in producciones:
@@ -121,28 +121,43 @@ class LALR(LR_UNO):
                 aux_conjunto = Conjunto(kernel)
                 otros_conjuntos = otros_conjuntos.union(temp.conjunto)
                 aux_conjunto.conjunto = otros_conjuntos
-                aux_conjunto.numero = temp.numero
+                aux_conjunto.numero = None
                 nuevos_conjuntos.add(aux_conjunto)
                 lista.pop(i)
                 i = 0
             else:
                 i += 1
-        for ele in lista:
-            nuevos_conjuntos.add(ele)
+        numero_conjuntos = len(lista) + len(nuevos_conjuntos)
+        indices = [True] * numero_conjuntos
         self.conjuntos = set()
+        for ele in lista:
+            if ele.numero < numero_conjuntos:
+                self.conjuntos.add(ele)
+                indices[ele.numero] = False
+            else:
+                conta = 0
+                while not indices[conta]:
+                    conta += 1
+                ele.numero = conta
+                indices[ele.numero] = False
+                self.conjuntos.add(ele)
         j = 0
         lista_conjuntos = list(nuevos_conjuntos)
         while (j < len(lista_conjuntos)):
-            lista_conjuntos[j].numero = j
+            conta = 0
+            while not indices[conta]:
+                conta += 1
+            lista_conjuntos[j].numero = conta
+            indices[conta] = False
             self.conjuntos.add(lista_conjuntos[j])
             j += 1
-
         self.num_filas = len(self.conjuntos)
         self.tabla = [["err"] * self.num_columnas for i in range(self.num_filas)]
 
     def construir_tabla(self):
         print('PRODUCCIONES:')
-        contador_gramatica = 1
+        # pdb.set_trace()
+        self.imprimir_gramatica()
         for I in self.conjuntos:
             for A, valor in self.no_terminales.items():
                 temp = self.mover(I.conjunto, A)
@@ -163,14 +178,7 @@ class LALR(LR_UNO):
                 if elemento.tipo == self.TIPO_B:
                     if elemento.izq != self.extendido:
                         llave = elemento.izq + '->' + elemento.der
-                        r = 0
-                        if llave in self.gramatica_id:
-                            r = self.gramatica_id.get(llave)
-                        else:
-                            self.gramatica_id.update({llave: contador_gramatica})
-                            r = contador_gramatica
-                            print(str(r) + ' ' + elemento.izq + '->' + elemento.der)
-                            contador_gramatica += 1
+                        r = self.gramatica_id.get(llave)
                         i = I.numero
                         j = len(self.no_terminales)+self.terminales.get(elemento.terminal)-1
                         self.agregar_elemento(i, j, "r" + str(r))
