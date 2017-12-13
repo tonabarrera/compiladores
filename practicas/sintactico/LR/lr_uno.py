@@ -26,6 +26,10 @@ class LR_UNO(Auxiliares, Tipo):
         self.tabla = None
 
     def cerradura(self, I):
+        agregado = dict()
+        for i in I:
+            agregado.update({str(i): True})
+        # pdb.set_trace()
         J = list(I)
         for A in J:
             if A.punto < len(A.der) and not self.es_terminal(A.der[A.punto]):
@@ -37,8 +41,12 @@ class LR_UNO(Auxiliares, Tipo):
                     primeros = self.primero(sub_cadena)
                     for pri in primeros:
                         ele = Elemento(B, pro, 0, pri)
-                        ele.set_tipo(self.terminales)
-                        J.append(ele)
+                        if str(ele) not in agregado:
+                            ele.set_tipo(self.terminales)
+                            J.append(ele)
+                            agregado.update({str(ele): True})
+                            #pdb.set_trace()
+                # pdb.set_trace()
 
         return set(J)
 
@@ -61,7 +69,6 @@ class LR_UNO(Auxiliares, Tipo):
         conjunto_inicio = Conjunto(inicio)
         conjunto_inicio.conjunto = self.cerradura(inicio)
         conjunto_inicio.numero = 0
-        pdb.set_trace()
         indice = 1
         lista.append(conjunto_inicio)
         for con in lista:
@@ -101,25 +108,51 @@ class LR_UNO(Auxiliares, Tipo):
         return False
 
     def construir_tabla(self):
+        print('PRODUCCIONES:')
+        contador_gramatica = 1
         for I in self.conjuntos:
             for A, valor in self.no_terminales.items():
                 temp = self.mover(I.conjunto, A)
                 num = self.ya_existe(self.conjuntos, temp)
                 if num:
-                    self.tabla[I.numero][valor-1] = num
+                    i = I.numero
+                    j = valor-1
+                    self.agregar_elemento(i, j, num)
 
             for elemento in I.conjunto:
                 if elemento.tipo == self.TIPO_A:
                     temp = self.mover(I.conjunto, elemento.der[elemento.punto])
                     num = self.ya_existe(self.conjuntos, temp)
                     if num:
-                        self.tabla[I.numero][len(self.no_terminales)+self.terminales.get(elemento.der[elemento.punto])-1] = "d"+str(num)
+                        i = I.numero
+                        j = len(self.no_terminales)+self.terminales.get(elemento.der[elemento.punto])-1
+                        self.agregar_elemento(i, j, "d"+str(num))
 
                 if elemento.tipo == self.TIPO_B:
                     if elemento.izq != "W":
-                        r = self.gramatica.get(elemento.izq).get("producciones").index(elemento.der)+self.no_terminales.get(elemento.izq)
-                        self.tabla[I.numero][len(self.no_terminales)+self.terminales.get(elemento.terminal)-1] = "r" + str(r)
+                        llave = elemento.izq + '->' + elemento.der
+                        r = 0
+                        if llave in self.gramatica_id:
+                            r = self.gramatica_id.get(llave)
+                        else:
+                            self.gramatica_id.update({llave: contador_gramatica})
+                            r = contador_gramatica
+                            print(str(r) + ' ' + elemento.izq + '->' + elemento.der)
+                            contador_gramatica += 1
+                        i = I.numero
+                        j = len(self.no_terminales)+self.terminales.get(elemento.terminal)-1
+                        self.agregar_elemento(i, j, "r" + str(r))
+                    else:
+                        i = I.numero
+                        j = len(self.no_terminales)+self.terminales.get('$')-1
+                        self.agregar_elemento(i, j, 'ACC')
         self.imprimir_tabla()
+
+    def agregar_elemento(self, i, j, num):
+        """Metodo que agrega un elemento a la tabla"""
+        if self.tabla[i][j] == "err":
+            self.tabla[i][j] = set()
+        self.tabla[i][j].add(num)
 
     def imprimir_tabla(self):
         print("Tabla LR(1):")

@@ -85,7 +85,7 @@ class LR_CERO(Auxiliares, Tipo):
     def obtener_conjuntos(self):
         lista = list()
         inicio = set()
-        ele = Elemento("W", "E", 0)
+        ele = Elemento("W", "S", 0)
         ele.set_tipo(self.terminales)
         inicio.add(ele)
         conjunto_inicio = Conjunto(inicio)
@@ -130,30 +130,55 @@ class LR_CERO(Auxiliares, Tipo):
         return False
 
     def construir_tabla(self):
-        contador_reducir = 1
+        contador_gramatica = 1
         for I in self.conjuntos:
             for X, valor in self.no_terminales.items():
                 temp = self.mover(I.conjunto, X)
                 num = self.ya_existe(self.conjuntos, temp)
                 if num:
-                    self.tabla[I.numero][valor-1] = num
+                    self.agregar_elemento(I.numero, valor-1, num)
+                    # self.tabla[I.numero][valor-1] = num
             for elemento in I.conjunto:
                 if elemento.tipo == self.TIPO_A:
                     temp = self.mover(I.conjunto, elemento.der[elemento.punto])
                     num = self.ya_existe(self.conjuntos, temp)
                     if num:
-                        self.tabla[I.numero][len(self.no_terminales)+self.terminales.get(elemento.der[elemento.punto])-1] = "d"+str(num)
+                        i = I.numero
+                        j = len(self.no_terminales)+self.terminales.get(elemento.der[elemento.punto])-1
+                        self.agregar_elemento(i, j, "d"+str(num))
+                        # self.tabla[I.numero][] = "d"+str(num)
 
                 if elemento.tipo == self.TIPO_B:
                     if elemento.izq != "W":
                         siguientes = self.siguiente(elemento.izq)
                         for sig in siguientes:
-                            self.tabla[I.numero][len(self.no_terminales)+self.terminales.get(sig)-1] = "r" + str(contador_reducir)
+                            llave = elemento.izq + '->' + elemento.der
+                            r = 0
+                            if llave in self.gramatica_id:
+                                r = self.gramatica_id.get(llave)
+                            else:
+                                self.gramatica_id.update({llave: contador_gramatica})
+                                r = contador_gramatica
+                                print(str(r) + ' ' + elemento.izq + '->' + elemento.der)
+                                contador_gramatica += 1
+
+                            i = I.numero
+                            j = len(self.no_terminales) + self.terminales.get(sig)-1
+                            self.agregar_elemento(i, j, "r" + str(r))
+                            # self.tabla[I.numero][] = "r" + str(r)
                     else:
-                        self.tabla[I.numero][len(self.no_terminales)+self.terminales.get("$")-1] = "ACE"
-                    contador_reducir += 1
+                        i = I.numero
+                        j = len(self.no_terminales)+self.terminales.get("$")-1
+                        self.agregar_elemento(i, j, "ACE")
+                        # self.tabla[I.numero][] = "ACE"
 
         self.imprimir_tabla()
+
+    def agregar_elemento(self, i, j, num):
+        """Metodo que agrega un elemento a la tabla"""
+        if self.tabla[i][j] == "err":
+            self.tabla[i][j] = set()
+        self.tabla[i][j].add(num)
 
     def imprimir_tabla(self):
         print("Tabla LR(0):")

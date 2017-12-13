@@ -17,7 +17,6 @@ class Conjunto(ConjuntoUno):
     def __init__(self, kernel):
         super(Conjunto, self).__init__(kernel)
         self.conjunto_cero = self.obtener_conjunto_cero()
-        self.numero_dos = None
 
     def obtener_conjunto_cero(self):
         representacion = set()
@@ -105,12 +104,9 @@ class LALR(LR_UNO):
             j = i + 1
             agregar = False
             kernel = set()
-            numero = ''
             while (j < len(lista)):
                 if temp.conjunto_cero == lista[j].conjunto_cero:
-                    print('UNION' + str(temp.conjunto) + ' ' + str(lista[j].conjunto_cero))
                     kernel = kernel.union(lista[j].kernel)
-                    numero = numero + str(lista[j].numero)
                     lista.pop(j)
                     agregar = True
                 j += 1
@@ -118,26 +114,60 @@ class LALR(LR_UNO):
                 kernel = kernel.union(temp.kernel)
                 aux_conjunto = Conjunto(kernel)
                 aux_conjunto.conjunto = temp.conjunto
-                numero = str(temp.numero) + numero
-                aux_conjunto.numero_dos = int(numero)
                 aux_conjunto.numero = temp.numero
                 nuevos_conjuntos.add(aux_conjunto)
                 lista.pop(i)
-                print('-------------------')
                 i = 0
             else:
                 i += 1
         for ele in lista:
             nuevos_conjuntos.add(ele)
-        self.conjuntos = nuevos_conjuntos
-        pdb.set_trace()
+        self.conjuntos = set()
+        j = 0
+        lista_conjuntos = list(nuevos_conjuntos)
+        while (j < len(lista_conjuntos)):
+            lista_conjuntos[j].numero = j
+            self.conjuntos.add(lista_conjuntos[j])
+            j += 1
 
-    def ya_existe(self, lista, kernel):
+        self.num_filas = len(self.conjuntos)
+        self.tabla = [["err"] * self.num_columnas for i in range(self.num_filas)]
+
+    def construir_tabla(self):
+        for I in self.conjuntos:
+            for A, valor in self.no_terminales.items():
+                temp = self.mover(I.conjunto, A)
+                #pdb.set_trace()
+                num = self.ir_A(self.conjuntos, temp)
+                if num:
+                    i = I.numero
+                    j = valor-1
+                    self.agregar_elemento(i, j, num)
+
+            for elemento in I.conjunto:
+                if elemento.tipo == self.TIPO_A:
+                    temp = self.mover(I.conjunto, elemento.der[elemento.punto])
+                    num = self.ir_A(self.conjuntos, temp)
+                    if num:
+                        i = I.numero
+                        j = len(self.no_terminales)+self.terminales.get(elemento.der[elemento.punto])-1
+                        self.agregar_elemento(i, j, "d"+str(num))
+
+                if elemento.tipo == self.TIPO_B:
+                    if elemento.izq != "W":
+                        r = self.gramatica.get(elemento.izq).get("producciones").index(elemento.der)+self.no_terminales.get(elemento.izq)
+                        i = I.numero
+                        j = len(self.no_terminales)+self.terminales.get(elemento.terminal)-1
+                        self.agregar_elemento(i, j, "r" + str(r))
+        self.imprimir_tabla()
+
+    def ir_A(self, lista, kernel):
+        # pdb.set_trace()
         aux = set()
         for elemento in kernel:
-            aux.add(elemento.ID)
+            aux.add(elemento.ID_CERO)
         for conjunto in lista:
-            if conjunto.repr_kernel == aux:
+            if conjunto.conjunto_cero == aux:
                 return conjunto.numero
 
         return False

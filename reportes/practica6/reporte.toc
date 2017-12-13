@@ -1,0 +1,8 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n}{2}
+\contentsline {section}{\numberline {2}Desarrollo}{4}
+\contentsline {section}{\numberline {3}Resultados}{10}
+\contentsline {subsection}{\numberline {3.1}Prueba 1}{10}
+\contentsline {subsection}{\numberline {3.2}Prueba 2}{11}
+\contentsline {subsection}{\numberline {3.3}Prueba 3}{11}
+\contentsline {section}{\numberline {4}Conclusiones}{13}

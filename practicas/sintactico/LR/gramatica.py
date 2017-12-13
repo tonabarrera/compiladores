@@ -9,6 +9,7 @@ class Gramatica:
         self.terminales = dict()
         self.inicial = None
         self.gramatica = dict()
+        self.gramatica_id = dict()
 
     def __str__(self):
         return "No terminales: " + str(self.no_terminales)
