@@ -31,6 +31,9 @@ class LALR(LR_UNO):
         super(LALR, self).__init__(archivo)
 
     def cerradura(self, I):
+        agregado = dict()
+        for i in I:
+            agregado.update({str(i): True})
         J = list(I)
         for A in J:
             if A.punto < len(A.der) and not self.es_terminal(A.der[A.punto]):
@@ -42,8 +45,10 @@ class LALR(LR_UNO):
                     primeros = self.primero(sub_cadena)
                     for pri in primeros:
                         ele = Elemento(B, pro, 0, pri)
-                        ele.set_tipo(self.terminales)
-                        J.append(ele)
+                        if str(ele) not in agregado:
+                            ele.set_tipo(self.terminales)
+                            J.append(ele)
+                            agregado.update({str(ele): True})
 
         return set(J)
 
@@ -59,7 +64,7 @@ class LALR(LR_UNO):
 
     def obtener_conjuntos(self):
         lista = list()
-        inicial = Elemento("W", "S", 0, "$")
+        inicial = Elemento(self.extendido, self.inicial, 0, "$")
         inicial.set_tipo(self.terminales)
         inicio = set()
         inicio.add(inicial)
@@ -98,22 +103,24 @@ class LALR(LR_UNO):
         lista = list(self.conjuntos)
         i = 0
         nuevos_conjuntos = set()
-        print('Lista ' + str(len(lista)))
         while (i < len(lista)):
             temp = lista[i]
             j = i + 1
             agregar = False
             kernel = set()
+            otros_conjuntos = set()
             while (j < len(lista)):
                 if temp.conjunto_cero == lista[j].conjunto_cero:
                     kernel = kernel.union(lista[j].kernel)
+                    otros_conjuntos = otros_conjuntos.union(lista[j].conjunto)
                     lista.pop(j)
                     agregar = True
                 j += 1
             if agregar:
                 kernel = kernel.union(temp.kernel)
                 aux_conjunto = Conjunto(kernel)
-                aux_conjunto.conjunto = temp.conjunto
+                otros_conjuntos = otros_conjuntos.union(temp.conjunto)
+                aux_conjunto.conjunto = otros_conjuntos
                 aux_conjunto.numero = temp.numero
                 nuevos_conjuntos.add(aux_conjunto)
                 lista.pop(i)
@@ -134,16 +141,16 @@ class LALR(LR_UNO):
         self.tabla = [["err"] * self.num_columnas for i in range(self.num_filas)]
 
     def construir_tabla(self):
+        print('PRODUCCIONES:')
+        contador_gramatica = 1
         for I in self.conjuntos:
             for A, valor in self.no_terminales.items():
                 temp = self.mover(I.conjunto, A)
-                #pdb.set_trace()
                 num = self.ir_A(self.conjuntos, temp)
                 if num:
                     i = I.numero
                     j = valor-1
                     self.agregar_elemento(i, j, num)
-
             for elemento in I.conjunto:
                 if elemento.tipo == self.TIPO_A:
                     temp = self.mover(I.conjunto, elemento.der[elemento.punto])
@@ -154,12 +161,24 @@ class LALR(LR_UNO):
                         self.agregar_elemento(i, j, "d"+str(num))
 
                 if elemento.tipo == self.TIPO_B:
-                    if elemento.izq != "W":
-                        r = self.gramatica.get(elemento.izq).get("producciones").index(elemento.der)+self.no_terminales.get(elemento.izq)
+                    if elemento.izq != self.extendido:
+                        llave = elemento.izq + '->' + elemento.der
+                        r = 0
+                        if llave in self.gramatica_id:
+                            r = self.gramatica_id.get(llave)
+                        else:
+                            self.gramatica_id.update({llave: contador_gramatica})
+                            r = contador_gramatica
+                            print(str(r) + ' ' + elemento.izq + '->' + elemento.der)
+                            contador_gramatica += 1
                         i = I.numero
                         j = len(self.no_terminales)+self.terminales.get(elemento.terminal)-1
                         self.agregar_elemento(i, j, "r" + str(r))
-        self.imprimir_tabla()
+                    else:
+                        i = I.numero
+                        j = len(self.no_terminales)+self.terminales.get('$')-1
+                        self.agregar_elemento(i, j, 'ACC')
+        self.imprimir_tabla("Tabla LALR:")
 
     def ir_A(self, lista, kernel):
         # pdb.set_trace()

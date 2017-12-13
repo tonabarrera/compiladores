@@ -1,5 +1,6 @@
 import re
 import pdb
+import string
 
 
 class Gramatica:
@@ -10,9 +11,7 @@ class Gramatica:
         self.inicial = None
         self.gramatica = dict()
         self.gramatica_id = dict()
-
-    def __str__(self):
-        return "No terminales: " + str(self.no_terminales)
+        self.extendido = None
 
     def leer_archivo(self):
         archivo = open(self.nombre_archivo, 'r')
@@ -29,6 +28,11 @@ class Gramatica:
             j = self.guardar_produccion(linea, j)
         self.terminales.update({"$": j})
 
+        for caracter in string.ascii_uppercase:
+            if caracter not in self.no_terminales:
+                self.extendido = caracter
+                break
+
     def guardar_produccion(self, linea, j):
         izq = linea[0]
         der = linea[3:]
@@ -41,7 +45,8 @@ class Gramatica:
             }})
         self.gramatica.get(izq).get("producciones").append(der)
         for c in der:
-            if re.match("[a-df-z\(\)\+\-\*]", c) is not None and c not in self.terminales:
+            expr_regular = re.match("[a-df-z\(\)\+\-\*]", c)
+            if expr_regular is not None and c not in self.terminales:
                 self.terminales.update({c: j})
                 j += 1
         return j
@@ -52,6 +57,7 @@ class Gramatica:
     def guardar_no_terminales(self, linea):
         i = 1
         for c in linea:
-            if re.match("[A-Z]", c) is not None and c not in self.no_terminales:
+            expr_regular = re.match("[A-Z]", c)
+            if expr_regular is not None and c not in self.no_terminales:
                 self.no_terminales.update({c: i})
                 i += 1

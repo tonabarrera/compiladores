@@ -29,7 +29,6 @@ class LR_UNO(Auxiliares, Tipo):
         agregado = dict()
         for i in I:
             agregado.update({str(i): True})
-        # pdb.set_trace()
         J = list(I)
         for A in J:
             if A.punto < len(A.der) and not self.es_terminal(A.der[A.punto]):
@@ -45,8 +44,6 @@ class LR_UNO(Auxiliares, Tipo):
                             ele.set_tipo(self.terminales)
                             J.append(ele)
                             agregado.update({str(ele): True})
-                            #pdb.set_trace()
-                # pdb.set_trace()
 
         return set(J)
 
@@ -62,7 +59,7 @@ class LR_UNO(Auxiliares, Tipo):
 
     def obtener_conjuntos(self):
         lista = list()
-        inicial = Elemento("W", "S", 0, "$")
+        inicial = Elemento(self.extendido, self.inicial, 0, "$")
         inicial.set_tipo(self.terminales)
         inicio = set()
         inicio.add(inicial)
@@ -129,7 +126,7 @@ class LR_UNO(Auxiliares, Tipo):
                         self.agregar_elemento(i, j, "d"+str(num))
 
                 if elemento.tipo == self.TIPO_B:
-                    if elemento.izq != "W":
+                    if elemento.izq != self.extendido:
                         llave = elemento.izq + '->' + elemento.der
                         r = 0
                         if llave in self.gramatica_id:
@@ -146,7 +143,7 @@ class LR_UNO(Auxiliares, Tipo):
                         i = I.numero
                         j = len(self.no_terminales)+self.terminales.get('$')-1
                         self.agregar_elemento(i, j, 'ACC')
-        self.imprimir_tabla()
+        self.imprimir_tabla("Tabla LR(1):")
 
     def agregar_elemento(self, i, j, num):
         """Metodo que agrega un elemento a la tabla"""
@@ -154,8 +151,8 @@ class LR_UNO(Auxiliares, Tipo):
             self.tabla[i][j] = set()
         self.tabla[i][j].add(num)
 
-    def imprimir_tabla(self):
-        print("Tabla LR(1):")
+    def imprimir_tabla(self, titulo):
+        print(titulo)
         for t in self.no_terminales.keys():
             print(t, end="\t")
 

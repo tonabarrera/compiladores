@@ -85,7 +85,7 @@ class LR_CERO(Auxiliares, Tipo):
     def obtener_conjuntos(self):
         lista = list()
         inicio = set()
-        ele = Elemento("W", "S", 0)
+        ele = Elemento(self.extendido, self.inicial, 0)
         ele.set_tipo(self.terminales)
         inicio.add(ele)
         conjunto_inicio = Conjunto(inicio)
@@ -130,6 +130,7 @@ class LR_CERO(Auxiliares, Tipo):
         return False
 
     def construir_tabla(self):
+        print('PRODUCCIONES:')
         contador_gramatica = 1
         for I in self.conjuntos:
             for X, valor in self.no_terminales.items():
@@ -149,7 +150,7 @@ class LR_CERO(Auxiliares, Tipo):
                         # self.tabla[I.numero][] = "d"+str(num)
 
                 if elemento.tipo == self.TIPO_B:
-                    if elemento.izq != "W":
+                    if elemento.izq != self.extendido:
                         siguientes = self.siguiente(elemento.izq)
                         for sig in siguientes:
                             llave = elemento.izq + '->' + elemento.der
@@ -172,7 +173,7 @@ class LR_CERO(Auxiliares, Tipo):
                         self.agregar_elemento(i, j, "ACE")
                         # self.tabla[I.numero][] = "ACE"
 
-        self.imprimir_tabla()
+        self.imprimir_tabla("Tabla LR(0):")
 
     def agregar_elemento(self, i, j, num):
         """Metodo que agrega un elemento a la tabla"""
@@ -180,8 +181,8 @@ class LR_CERO(Auxiliares, Tipo):
             self.tabla[i][j] = set()
         self.tabla[i][j].add(num)
 
-    def imprimir_tabla(self):
-        print("Tabla LR(0):")
+    def imprimir_tabla(self, titulo):
+        print(titulo)
         for t in self.no_terminales.keys():
             print(t, end="\t")
 
