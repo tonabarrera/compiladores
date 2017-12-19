@@ -1,0 +1,8 @@
+X Y Z
+X->XdY
+Y->ab
+Y->YabZ
+Z->ab
+Z->e
+Y->cb
+X->ba

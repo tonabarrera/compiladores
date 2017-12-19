@@ -1,13 +1,14 @@
-from lr_cero import Elemento as ElementoCero
-from lr_cero import Conjunto as ConjuntoCero
-from auxiliares import Tipo, Auxiliares
-import pdb
+from sintactico.LR.lr_cero import Elemento as ElementoCero
+from sintactico.LR.lr_cero import Conjunto as ConjuntoCero
+
+from sintactico.LR.lr_cero import LR_CERO
 
 
 class Elemento(ElementoCero):
     def __init__(self, izquierda, derecha, punto, terminal):
         super(Elemento, self).__init__(izquierda, derecha, punto)
         self.terminal = terminal
+        self.ID_CERO = self.ID
         self.ID = self.ID + "," + self.terminal
 
 
@@ -16,14 +17,9 @@ class Conjunto(ConjuntoCero):
         super(Conjunto, self).__init__(kernel)
 
 
-class LR_UNO(Auxiliares, Tipo):
+class LR_UNO(LR_CERO):
     def __init__(self, archivo):
         super(LR_UNO, self).__init__(archivo)
-        self.leer_archivo()
-        self.conjuntos = None
-        self.num_columnas = 0
-        self.num_filas = 0
-        self.tabla = None
 
     def cerradura(self, I):
         agregado = dict()
@@ -93,16 +89,6 @@ class LR_UNO(Auxiliares, Tipo):
         self.num_filas = indice
         self.tabla = [["err"] * self.num_columnas for i in range(self.num_filas)]
 
-    def ya_existe(self, lista, kernel):
-        aux = set()
-        for elemento in kernel:
-            aux.add(elemento.ID)
-        for conjunto in lista:
-            if conjunto.repr_kernel == aux:
-                return conjunto.numero
-
-        return False
-
     def construir_tabla(self):
         print('PRODUCCIONES:')
         self.imprimir_gramatica()
@@ -136,24 +122,3 @@ class LR_UNO(Auxiliares, Tipo):
                         j = len(self.no_terminales)+self.terminales.get('$')-1
                         self.agregar_elemento(i, j, 'ACC')
         self.imprimir_tabla("Tabla LR(1):")
-
-    def agregar_elemento(self, i, j, num):
-        """Metodo que agrega un elemento a la tabla"""
-        if self.tabla[i][j] == "err":
-            self.tabla[i][j] = set()
-        self.tabla[i][j].add(num)
-
-    def imprimir_tabla(self, titulo):
-        print(titulo)
-        for t in self.no_terminales.keys():
-            print(t, end="\t")
-
-        for t in self.terminales.keys():
-            print(t, end="\t")
-
-        print("estado")
-
-        for fila, edo in zip(self.tabla, range(self.num_filas)):
-            for columna in fila:
-                print(columna, end="\t")
-            print(edo)

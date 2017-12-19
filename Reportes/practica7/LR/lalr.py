@@ -1,6 +1,14 @@
 from sintactico.LR.lr_uno import Conjunto as ConjuntoUno
-from sintactico.LR.lr_uno import Elemento
+from sintactico.LR.lr_cero import Elemento as ElementoCero
 from sintactico.LR.lr_uno import LR_UNO
+
+
+class Elemento(ElementoCero):
+    def __init__(self, izquierda, derecha, punto, terminal):
+        super(Elemento, self).__init__(izquierda, derecha, punto)
+        self.terminal = terminal
+        self.ID_CERO = self.ID
+        self.ID = self.ID + "," + self.terminal
 
 
 class Conjunto(ConjuntoUno):

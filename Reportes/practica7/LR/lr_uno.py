@@ -1,24 +1,55 @@
-from sintactico.LR.lr_uno import Conjunto as ConjuntoUno
-from sintactico.LR.lr_uno import Elemento
-from sintactico.LR.lr_uno import LR_UNO
+from sintactico.LR.lr_cero import Elemento as ElementoCero
+from sintactico.LR.lr_cero import Conjunto as ConjuntoCero
+
+from sintactico.LR.lr_cero import LR_CERO
 
 
-class Conjunto(ConjuntoUno):
+class Elemento(ElementoCero):
+    def __init__(self, izquierda, derecha, punto, terminal):
+        super(Elemento, self).__init__(izquierda, derecha, punto)
+        self.terminal = terminal
+        self.ID = self.ID + "," + self.terminal
+
+
+class Conjunto(ConjuntoCero):
     def __init__(self, kernel):
         super(Conjunto, self).__init__(kernel)
-        self.conjunto_cero = self.obtener_conjunto_cero()
-
-    def obtener_conjunto_cero(self):
-        representacion = set()
-        for elemento in self.kernel:
-            representacion.add(elemento.ID_CERO)
-
-        return representacion
 
 
-class LALR(LR_UNO):
+class LR_UNO(LR_CERO):
     def __init__(self, archivo):
-        super(LALR, self).__init__(archivo)
+        super(LR_UNO, self).__init__(archivo)
+
+    def cerradura(self, I):
+        agregado = dict()
+        for i in I:
+            agregado.update({str(i): True})
+        J = list(I)
+        for A in J:
+            if A.punto < len(A.der) and self.es_no_terminal(A.der[A.punto]):
+                B = A.der[A.punto]
+                producciones = self.obtener_izq(B)
+                for pro in producciones:
+                    sub_cadena = A.der[A.punto+1:]
+                    sub_cadena += A.terminal
+                    primeros = self.primero(sub_cadena)
+                    for pri in primeros:
+                        ele = Elemento(B, pro, 0, pri)
+                        if str(ele) not in agregado:
+                            ele.set_tipo(self.terminales)
+                            J.append(ele)
+                            agregado.update({str(ele): True})
+        return set(J)
+
+    def mover(self, I, X):
+        J = set()
+        for i in I:
+            if i.punto < len(i.der) and i.der[i.punto] == X:
+                ele = Elemento(i.izq, i.der, i.punto+1, i.terminal)
+                ele.set_tipo(self.terminales)
+                J.add(ele)
+
+        return J
 
     def obtener_conjuntos(self):
         lista = list()
@@ -35,7 +66,7 @@ class LALR(LR_UNO):
             for X in self.no_terminales:
                 kernel = self.mover(con.conjunto, X)
                 if len(kernel) != 0:
-                    if not super(LALR, self).ya_existe(lista, kernel):
+                    if not self.ya_existe(lista, kernel):
                         conjunto_aux = Conjunto(kernel)
                         conjunto_aux.conjunto = self.cerradura(kernel)
                         conjunto_aux.numero = indice
@@ -45,7 +76,7 @@ class LALR(LR_UNO):
             for X in self.terminales:
                 kernel = self.mover(con.conjunto, X)
                 if len(kernel) != 0:
-                    if not super(LALR, self).ya_existe(lista, kernel):
+                    if not self.ya_existe(lista, kernel):
                         conjunto_aux = Conjunto(kernel)
                         conjunto_aux.conjunto = self.cerradura(kernel)
                         conjunto_aux.numero = indice
@@ -55,60 +86,6 @@ class LALR(LR_UNO):
         self.conjuntos = set(lista)
         self.num_columnas = len(self.terminales) + len(self.no_terminales)
         self.num_filas = indice
-
-    def unir_conjuntos(self):
-        lista = list(self.conjuntos)
-        i = 0
-        nuevos_conjuntos = set()
-        while i < len(lista):
-            temp = lista[i]
-            j = i + 1
-            agregar = False
-            kernel = set()
-            otros_conjuntos = set()
-            while j < len(lista):
-                if temp.conjunto_cero == lista[j].conjunto_cero:
-                    kernel = kernel.union(lista[j].kernel)
-                    otros_conjuntos = otros_conjuntos.union(lista[j].conjunto)
-                    lista.pop(j)
-                    agregar = True
-                j += 1
-            if agregar:
-                kernel = kernel.union(temp.kernel)
-                aux_conjunto = Conjunto(kernel)
-                otros_conjuntos = otros_conjuntos.union(temp.conjunto)
-                aux_conjunto.conjunto = otros_conjuntos
-                aux_conjunto.numero = None
-                nuevos_conjuntos.add(aux_conjunto)
-                lista.pop(i)
-                i = 0
-            else:
-                i += 1
-        numero_conjuntos = len(lista) + len(nuevos_conjuntos)
-        indices = [True] * numero_conjuntos
-        self.conjuntos = set()
-        for ele in lista:
-            if ele.numero < numero_conjuntos:
-                self.conjuntos.add(ele)
-                indices[ele.numero] = False
-            else:
-                conta = 0
-                while not indices[conta]:
-                    conta += 1
-                ele.numero = conta
-                indices[ele.numero] = False
-                self.conjuntos.add(ele)
-        j = 0
-        lista_conjuntos = list(nuevos_conjuntos)
-        while j < len(lista_conjuntos):
-            conta = 0
-            while not indices[conta]:
-                conta += 1
-            lista_conjuntos[j].numero = conta
-            indices[conta] = False
-            self.conjuntos.add(lista_conjuntos[j])
-            j += 1
-        self.num_filas = len(self.conjuntos)
         self.tabla = [["err"] * self.num_columnas for i in range(self.num_filas)]
 
     def construir_tabla(self):
@@ -122,6 +99,7 @@ class LALR(LR_UNO):
                     i = I.numero
                     j = valor-1
                     self.agregar_elemento(i, j, num)
+
             for elemento in I.conjunto:
                 if elemento.tipo == self.TIPO_A:
                     temp = self.mover(I.conjunto, elemento.der[elemento.punto])
@@ -142,14 +120,4 @@ class LALR(LR_UNO):
                         i = I.numero
                         j = len(self.no_terminales)+self.terminales.get('$')-1
                         self.agregar_elemento(i, j, 'ACC')
-        self.imprimir_tabla("Tabla LALR:")
-
-    def ya_existe(self, lista, kernel):
-        aux = set()
-        for elemento in kernel:
-            aux.add(elemento.ID_CERO)
-        for conjunto in lista:
-            if conjunto.conjunto_cero == aux:
-                return conjunto.numero
-
-        return False
+        self.imprimir_tabla("Tabla LR(1):")
